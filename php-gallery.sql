@@ -285,13 +285,6 @@ CREATE TABLE `users` (
   `password_md5` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Vypisuji data pro tabulku `users`
---
-
-INSERT INTO `users` (`id`, `aid`, `name`, `username`, `email`, `verified`, `banned`, `admin`, `folder_name`, `password`, `password_md5`) VALUES
-(1, '172522ec1028ab781d9dfd17eaca4427', 'David Rejzek', 'david.rejzek', 'info@davidrejzek.cz', 1, 0, 1, 'david', '$2y$10$Fw4O9HnxGV.EhsG2MO4.c.sJc7crfW2Y..B3iVLhj/dKML2L1r1aO', '4d8d11a70232a42092d331f95bee30be'),
-(2, '', 'Jakub Baláž', 'kubab', 'test@gmail.com', 1, 0, 0, '', '$2y$10$bYPizqPfiSD8oIo2bQHQgurLIzd9Fz6lTXVvCYbjlOi1kIEH5NweG', NULL);
 
 --
 -- Indexy pro exportované tabulky
