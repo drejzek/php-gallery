@@ -16,6 +16,11 @@
      {
         $gd = mysqli_fetch_array($r);
      }
+
+     if($_SESSION['user_id'] != $gd['user_id']){
+        header('location: .');
+        exit();
+     }
   }
 
   if(isset($_POST['submit'])){
@@ -27,7 +32,7 @@
     for($i=0;$i<3;$i++)
       $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
 
-    $public = !$sfield[0];
+    $private = $sfield[0];
     $locked = $sfield[1];
     $defPlaces = $sfield[2];
 
@@ -42,10 +47,8 @@
         }
     }
     
-    $sql = "UPDATE galleries SET name = '$name', descr = '$descr', upper_gallery_id = '$upperGallery', is_public = '$public', is_locked = '$locked', is_def_places = '$defPlaces', password = '$pwd' WHERE id = " . $_GET['g'];
+    $sql = "UPDATE galleries SET name = '$name', descr = '$descr', upper_gallery_id = '$upperGallery', is_private = '$private', is_locked = '$locked', is_def_places = '$defPlaces', password = '$pwd' WHERE id = " . $_GET['g'];
     $r = mysqli_query($conn, $sql);
-
-    header('location: gallery.php?g=' . $_GET['g']);
   }
 
   if(isset($_POST['delImg'])){
@@ -135,7 +138,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="ispublic" name="field[0]" <?php echo !$gd['is_public'] ? "checked" : ""?>>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="ispublic" name="field[0]" <?php echo $gd['is_private'] ? "checked" : ""?>>
                                     <label class="form-check-label" for="ispublic">Sukromá galerie</label>
                                 </div>
                                 <div class="form-check form-switch">
@@ -241,7 +244,22 @@
                         </div>
                     </div> 
                 </div>
-                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-sm-6 mx-auto">
+                            <div class="container rounded border d-flex p-3">
+                                <h4>Smazat galerii/album</h4>
+                                <div class="ms-auto">
+                                    <form action="delete-gallery.php?g=<?php echo $_GET['g']?>" method="post">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt me-2"></i> Smazat
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
             </div>
         </div>

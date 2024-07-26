@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "config.php";
 
 // Funkce pro generování unikátního uživatelského jména
 function generateUniqueUsername($baseUsername, $conn) {

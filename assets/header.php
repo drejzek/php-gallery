@@ -94,25 +94,27 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-light">Overview</a></li>
+          <li><a href="." class="nav-link px-2 link-light">Overview</a></li>
         </ul>
-
+        
+        <?php if(isset($_SESSION['user_id'])): ?>
         <div class="dropdown text-end">
           <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            <?php echo $_SESSION['user_name'] ?>
           </a>
           <ul class="dropdown-menu text-small">
-            <?php if(isset($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item" href="#">New project...</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
               <li><a class="dropdown-item" href="users/profile.php">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item" href="login.php">Sign In</a></li>
-            <?php endif; ?>
-          </ul>
-        </div>
+              <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+            </ul>
+          </div>
+          <?php else: ?>
+            <div class="text-end">
+              <a href="login.php" class="link-light text-decoration-none">Log in</a>
+            </div>
+          <?php endif; ?>
       </div>
     </div>
   </header>

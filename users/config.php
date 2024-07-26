@@ -1,6 +1,6 @@
 <?php
 
-$config = file_get_contents('config.json');
+$config = file_get_contents('../config.json');
 
 $credentials = json_decode($config, true);
 

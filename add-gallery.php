@@ -14,11 +14,11 @@
 
     $gid = rand(100000, 999999);
     
-    $sql = "INSERT INTO `galleries`(`name`, `descr`, `upper_gallery_id`, `max_items_count`, `is_public`, `is_locked`, `password`, `gid`, `user_id`) VALUES ('$name', '$descr', '$upperGallery', '999', '" . !$sfield[0] . "', '" . $sfield[1] . "', '" . md5($pwd) . "', '$gid','" . $_SESSION['user_id'] . "')";
+    $sql = "INSERT INTO `galleries`(`name`, `descr`, `upper_gallery_id`, `max_items_count`, `is_private`, `is_locked`, `password`, `gid`, `user_id`) VALUES ('$name', '$descr', '$upperGallery', '999', '" . $sfield[0] . "', '" . $sfield[1] . "', '" . md5($pwd) . "', '$gid','" . $_SESSION['user_id'] . "')";
     mysqli_query($conn, $sql);
 
     $sql = "SELECT * FROM galleries WHERE gid = '$gid'";
-    header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['id']);
+    //header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['id']);
   }
 
 ?>
@@ -36,7 +36,7 @@
               <div class="form-group mb-3">
                 <label for="gname" class="form-label">Název galerie:</label>
                 <input type="text" name="gname" id="gname" class="form-control">
-              </div>w
+              </div>
               <div class="form-group mb-3">
                 <label for="gname" class="form-label">Popis galerie:</label>
                 <textarea rows="6" type="text" name="gdescr" id="gname" class="form-control"></textarea>

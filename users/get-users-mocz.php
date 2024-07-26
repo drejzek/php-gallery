@@ -1,5 +1,5 @@
 <?php
-    require_once '../config.php';    
+    require_once 'config.php';    
     // Kontrola připojení
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);

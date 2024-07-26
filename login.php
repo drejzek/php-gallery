@@ -9,7 +9,7 @@ if (isset($_POST["submit"])) {
   $password = trim($_POST["password"]);
 
   // Získání uloženého hesla pro zadané uživatelské jméno
-  $query = "SELECT id, password FROM users WHERE username = '$username'";
+  $query = "SELECT id, name, password_md5 AS password FROM users WHERE username = '$username'";
   $result = $conn->query($query);
 
   if ($result->num_rows == 1) {
@@ -17,14 +17,15 @@ if (isset($_POST["submit"])) {
     $hashed_password = $row["password"];
 
     // Ověření hesla
-    //if (password_verify($password, $hashed_password)) {
+    if (md5($password) == $hashed_password) {
       $_SESSION["user_id"] = $row["id"];
+      $_SESSION["user_name"] = $row["name"];
       header("Location: ."); // Přesměrování na hlavní stránku po přihlášení
       exit();
-    // } 
-    // else {
-    //   header("Location: ?passErr");
-    // }
+     } 
+    else {
+      header("Location: ?passErr");
+    }
   } 
   else {
       header("Location: ?userErr");
