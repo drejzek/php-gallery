@@ -1,0 +1,78 @@
+<?php
+session_start();
+
+// Připojení k databázi
+include 'config.php';
+// Zpracování formuláře přihlášení
+if (isset($_POST["submit"])) {
+  $username = trim($_POST["username"]);
+  $password = trim($_POST["password"]);
+
+  // Získání uloženého hesla pro zadané uživatelské jméno
+  $query = "SELECT id, password FROM users WHERE username = '$username'";
+  $result = $conn->query($query);
+
+  if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+    $hashed_password = $row["password"];
+
+    // Ověření hesla
+    //if (password_verify($password, $hashed_password)) {
+      $_SESSION["user_id"] = $row["id"];
+      header("Location: ."); // Přesměrování na hlavní stránku po přihlášení
+      exit();
+    // } 
+    // else {
+    //   header("Location: ?passErr");
+    // }
+  } 
+  else {
+      header("Location: ?userErr");
+  }
+}
+?>
+ 
+<?php include 'assets/header.php'?>
+
+    <main>
+      <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row">
+          <form method="post" class="mx-auto col-sm-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control <?php echo isset($_GET['userErr']) ? 'is-invalid' : '';?>" id="floatingInput" placeholder="name@example.com" name="username">
+                <label for="floatingInput">Uživateské jméno</label>
+                <div class="invalid-feedback">
+                  Uživatel nebyl nalezen.
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control <?php echo isset($_GET['passErr']) ? 'is-invalid' : '';?>" id="floatingPassword" placeholder="Password" name="password">
+                <label for="floatingPassword">Heslo</label>
+                <div class="invalid-feedback">
+                  Heslo není správné.
+                </div>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                <label class="form-check-label" for="rememberPasswordCheck">
+                  Zapamatovat si mě
+                </label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-success btn-login w-50" type="submit" name="submit">Přihlásit</button>
+              </div>
+              <hr class="my-4">
+              <div class="d-grid mb-2">
+                <a class="btn btn-link text-decoration-none" href="signup.php">
+                  Ještě nemáte účet? Zaregistrujte se
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  <?php include 'assets/footer.php'?>
