@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Step 3 fields
     $userName = isset($_POST['userName']) ? $_POST['userName'] : '';
-    $username = isset($_POST['userame']) ? $_POST['username'] : '';
+    $userUserName = isset($_POST['userame']) ? $_POST['username'] : '';
     $userEmail = isset($_POST['userEmail']) ? $_POST['userEmail'] : '';
     $userPassword = isset($_POST['userPassword']) ? md5($_POST['userPassword']) : '';
 
@@ -109,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             (
                                 '0',
                                 '$userName',
-                                '$username',
+                                '$userUserName',
                                 '$userEmail',
                                 '1',
                                 '0',
