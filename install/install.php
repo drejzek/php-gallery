@@ -1,5 +1,11 @@
-
 <?php
+
+$db_test = null;
+$db_save_config = null;
+$db_make_tables = null;
+$db_save_user = null;
+$db_save_settings = null;
+
 // Assuming the form uses POST method and the action is install.php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -20,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo $galleryURL = isset($_POST['galleryURL']) ? $_POST['galleryURL'] : '';
     echo $galleryDescr = isset($_POST['galleryDescr']) ? $_POST['galleryDescr'] : '';
 
-    $con = mysqli_query($databaseHost, $databaseUser, $databasePassword, $databaseName);
+    $con = mysqli_connect($databaseHost, $databaseUser, $databasePassword, $databaseName);
 
     function testMysqlConnection($host, $username, $password, $dbname) {
         // Create connection
@@ -69,21 +75,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return true;
     }
 
-    $connectionResult = testMysqlConnection($databaseHost, $databaseUser, $databaseName, $databaseName);
+    $connectionResult = testMysqlConnection($databaseHost, $databaseUser, $databasePassword, $databaseName);
 
     if ($connectionResult) {
+        $db_test = 1;
         $config_content = "<?php\n";
         $config_content = "\$admin = 0;";
-        $config_content .= "define('DB_HOST', '" . addslashes($db_host) . "');\n";
-        $config_content .= "define('DB_NAME', '" . addslashes($db_name) . "');\n";
-        $config_content .= "define('DB_USER', '" . addslashes($db_user) . "');\n";
-        $config_content .= "define('DB_PASSWORD', '" . addslashes($db_password) . "');\n";
+        $config_content .= "define('DB_HOST', '" . addslashes($databaseHost) . "');\n";
+        $config_content .= "define('DB_NAME', '" . addslashes($databaseName) . "');\n";
+        $config_content .= "define('DB_USER', '" . addslashes($databaseUser) . "');\n";
+        $config_content .= "define('DB_PASSWORD', '" . addslashes($databasePassword) . "');\n";
         $config_content .= "\$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);";
 
         if (file_put_contents('../config.php', $config_content) !== false) {
 
+            $db_save_config = 1;
             if(executeSqlFile($databaseHost, $databaseUser, $databasePassword, $databaseName, "php-gallery-strucuture.sql")){
-               $sql_user = "INSERT INTO `users`
+                $db_make_tables = 1;
+                $sql_user = "INSERT INTO `users`
                             (
                                 `aid`,
                                 `name`,
@@ -136,16 +145,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $r_settings = mysqli_query($con, $sql_settings);
 
+                if($r_user){
+                    $db_save_user = 1;
+                }
+                else{
+                    $db_save_user = 0;
+                }
+
+                if($r_settings){
+                    $db_save_settings = 1;
+                }
+                else{
+                    $db_save_settings = 0;
+                }
+
+            }
+            else{
+                $db_make_tables = 0;
             }
 
         } else {
-            echo "Chyba při ukládání konfigurace.";
+            $db_save_config = 0;
         }
     } else {
-        echo 'Connection failed';
+        $db_test = 0;
     }
 
+    $progress = [
+        "db_test" = $db_test,
+        "db_save_config" = $db_save_config,
+        "db_make_tables" = $db_make_tables,
+        "db_save_user" = $db_save_user,
+        "db_save_settings" = $db_save_settings
+    ]; 
 
+    // Store the progress array in the session
+    $_SESSION['progress'] = $progress;
+
+    // Redirect to the display page
+    header("Location: display.php");
+    exit();
 
 }
 ?>
