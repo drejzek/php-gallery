@@ -10,69 +10,93 @@ if (isset($_SESSION['progress'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Progress</title>
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
-    <style>
-        .bg-success {
-            color: white !important;
-        }
-        .bg-danger {
-            color: white !important;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap-grid.css" rel="stylesheet" id="bootstrap-css-grid">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Progress Data</h1>
-        <ul class="list-group">
-            <li class="list-group-item">
-                Database Test:
-                <?php if ($progress['db_test']): ?>
-                    <i class="fas fa-check-circle bg-success p-2 rounded-circle"></i>
-                <?php else: ?>
-                    <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
-                <?php endif; ?>
-            </li>
-            <li class="list-group-item">
-                Save Config:
-                <?php if ($progress['db_save_config']): ?>
-                    <i class="fas fa-check-circle bg-success p-2 rounded-circle"></i>
-                <?php else: ?>
-                    <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
-                <?php endif; ?>
-            </li>
-            <li class="list-group-item">
-                Make Tables:
-                <?php if ($progress['db_make_tables']): ?>
-                    <i class="fas fa-check-circle bg-success p-2 rounded-circle"></i>
-                <?php else: ?>
-                    <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
-                <?php endif; ?>
-            </li>
-            <li class="list-group-item">
-                Save User:
-                <?php if ($progress['db_save_user']): ?>
-                    <i class="fas fa-check-circle bg-success p-2 rounded-circle"></i>
-                <?php else: ?>
-                    <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
-                <?php endif; ?>
-            </li>
-            <li class="list-group-item">
-                Save Settings:
-                <?php if ($progress['db_save_settings']): ?>
-                    <i class="fas fa-check-circle bg-success p-2 rounded-circle"></i>
-                <?php else: ?>
-                    <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
-                <?php endif; ?>
-            </li>
-        </ul>
+<!------ Include the above in your HEAD tag ---------->
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+      Open source PHP Gallery
+      </a>
     </div>
+  </div>
+</nav>
+
+<div class="container row">
+    <div class="panel panel-primary setup-content col-sm-6 mx-auto p-0">
+        <div class="panel-heading">
+            <h3 class="panel-title">Výsledek instalace</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item d-flex">
+                    <span class="me-auto">
+                        Připojení k databázi
+                    </span>
+                    <?php if ($progress['db_test']): ?>
+                        <i class="fas fa-check-circle text-success"></i>
+                    <?php else: ?>
+                        <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
+                    <?php endif; ?>
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="me-auto">
+                        Uložení konfigurace
+                    </span>
+                    <?php if ($progress['db_save_config']): ?>
+                        <i class="fas fa-check-circle text-success"></i>
+                    <?php else: ?>
+                        <i class="fas fa-times-circle text-danger"></i>
+                    <?php endif; ?>
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="me-auto">
+                        Vytvoření tabulek v databázi
+                    </span>
+                    <?php if ($progress['db_make_tables']): ?>
+                        <i class="fas fa-check-circle text-success"></i>
+                    <?php else: ?>
+                        <i class="fas fa-times-circle text-danger"></i>
+                    <?php endif; ?>
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="me-auto">
+                        Vytvoření uživatele
+                    </span>
+                    <?php if ($progress['db_save_user']): ?>
+                        <i class="fas fa-check-circle text-success"></i>
+                    <?php else: ?>
+                        <i class="fas fa-times-circle text-danger"></i>
+                    <?php endif; ?>
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="me-auto">
+                        Uložení nastavení
+                    </span>
+                    <?php if ($progress['db_save_settings']): ?>
+                        <i class="fas fa-check-circle text-success"></i>
+                    <?php else: ?>
+                        <i class="fas fa-times-circle text-danger"></i>
+                    <?php endif; ?>
+                </li>
+            </ul>
+            <a href="../" class="btn btn-primary">Dokončit</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

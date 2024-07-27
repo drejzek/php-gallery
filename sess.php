@@ -1,5 +1,9 @@
 <?php
 
+if(empty($conn)){
+    header('location: install/');
+}
+
 $sql = "SELECT * FROM settings";
 $r_s = mysqli_query($conn, $sql);
 $s = mysqli_fetch_array($r_s);
