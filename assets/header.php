@@ -1,3 +1,12 @@
+<?php
+
+if($admin && !$_SESSION['user_admin']){    
+  echo 'not admin';
+  header("Location: " . $s['gallery_url'] . "auth/");
+  exit();
+}
+
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="/docs/5.3/assets/js/color-modes.js"></script>

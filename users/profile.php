@@ -1,6 +1,6 @@
 <?php $admin = true; ?>
-<?php include '../sess.php'?>
 <?php include 'config.php'?>
+<?php include '../sess.php'?>
 <?php
 $id = "";
 $alert_type = null;

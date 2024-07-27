@@ -23,6 +23,8 @@ if (isset($_POST["submit"])) {
 
       if($row['admin'])
         $_SESSION['user_admin'] = 1;
+      else
+        $_SESSION['user_admin'] = 0;
 
       header("Location: ../"); // Přesměrování na hlavní stránku po přihlášení
       exit();
@@ -44,6 +46,11 @@ if (isset($_POST["submit"])) {
         <div class="container">
           <div class="row">
           <form method="post" class="mx-auto col-sm-4">
+            <?php if(isset($_GET['signupnotallowed'])):?>
+              <div class="alert alert-danger">
+                <span>Registrace uživatele není na tomto webu povolena</span>
+              </div>
+              <?php endif;?>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control <?php echo isset($_GET['userErr']) ? 'is-invalid' : '';?>" id="floatingInput" placeholder="name@example.com" name="username">
                 <label for="floatingInput">Uživateské jméno</label>

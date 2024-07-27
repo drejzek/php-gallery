@@ -8,6 +8,10 @@ $sql = "SELECT * FROM settings";
 $r_s = mysqli_query($conn, $sql);
 $s = mysqli_fetch_array($r_s);
 
+if(!$s['allow_signup']){
+  header('location: .?signupnotallowed');
+}
+
 $errpwdnotsame = 0;
 // Zpracování formuláře přihlášení
 if (isset($_POST["submit"])) {

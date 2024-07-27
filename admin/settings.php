@@ -1,8 +1,8 @@
 <?php
 
 $admin = true;
-include '../sess.php';
 include 'config.php';
+include '../sess.php';
 
   $gd = null;
 

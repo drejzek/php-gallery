@@ -1,11 +1,13 @@
 <?php
+
+$sql = "SELECT * FROM settings";
+$r_s = mysqli_query($conn, $sql);
+$s = mysqli_fetch_array($r_s);
+
 // Kontrola, zda session ještě nebyla spuštěna
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
-// Připojení konfiguračního souboru
-require_once 'config.php';
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -16,12 +18,13 @@ if (!isset($_SESSION['user_id'])) {
         header("Location: login.php");
         exit();
     }
-    else if($admin && !$_SESSION['user_admin']){    
-        header("Location: login.php");
-        exit();
-    }
 }
 else{
+    if($admin && !$_SESSION['user_admin']){    
+        header("Location: " . $s['gallery_url'] . "auth/");
+        exit();
+    }
+    
     $loggedInUserName = '';
     $loggedInUserId = $_SESSION['user_id'];
 
@@ -35,10 +38,6 @@ else{
         }
     }
 }
-
-$sql = "SELECT * FROM settings";
-$r_s = mysqli_query($conn, $sql);
-$s = mysqli_fetch_array($r_s);
 
 // Zkontrolujeme, zda proměnná $search existuje, a pokud ne, nastavíme ji na prázdný řetězec
 $search = isset($search) ? $search : '';

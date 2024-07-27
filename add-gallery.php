@@ -1,7 +1,7 @@
 <?php
 
-  include 'sess.php';
-  include 'config.php';
+include 'config.php';
+include 'sess.php';
 
   if(isset($_POST['submit'])){
     $name = $_POST['gname'];

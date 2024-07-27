@@ -1,7 +1,7 @@
 <?php
     $index = true;
-    include 'sess.php';
     include 'config.php';
+    include 'sess.php';
 
     $sql = "SELECT * FROM galleries WHERE id = "  . $_GET['g'];
     $r = mysqli_query($conn, $sql);
