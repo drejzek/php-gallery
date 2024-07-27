@@ -1,3 +1,12 @@
+<?php
+
+    include '../config.php';
+
+    if(!empty($conn)){
+        header('location: dashboard.php');
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
