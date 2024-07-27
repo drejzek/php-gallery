@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($connectionResult) {
         $db_test = 1;
         $config_content = "<?php\n";
-        $config_content = "\$admin = 0;";
+        $config_content .= "\$admin = 0;";
         $config_content .= "define('DB_HOST', '" . addslashes($databaseHost) . "');\n";
         $config_content .= "define('DB_NAME', '" . addslashes($databaseName) . "');\n";
         $config_content .= "define('DB_USER', '" . addslashes($databaseUser) . "');\n";
@@ -179,11 +179,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "db_save_settings" => $db_save_settings
     ]; 
 
+    session_start();
+
     // Store the progress array in the session
     $_SESSION['progress'] = $progress;
 
     // Redirect to the display page
-    header("Location: display.php");
+    header("Location: finish.php");
     exit();
 
 }
