@@ -1,5 +1,7 @@
+<?php $admin = true; ?>
+<?php include '../sess.php'?>
+<?php include 'config.php'?>
 <?php
-include "config.php";
 
 // Funkce pro generování unikátního uživatelského jména
 function generateUniqueUsername($baseUsername, $conn) {

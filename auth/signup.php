@@ -4,6 +4,10 @@ session_start();
 // Připojení k databázi
 include 'config.php';
 
+$sql = "SELECT * FROM settings";
+$r_s = mysqli_query($conn, $sql);
+$s = mysqli_fetch_array($r_s);
+
 $errpwdnotsame = 0;
 // Zpracování formuláře přihlášení
 if (isset($_POST["submit"])) {
@@ -15,7 +19,7 @@ if (isset($_POST["submit"])) {
 
   if($password == $password_rpt){
     // Získání uloženého hesla pro zadané uživatelské jméno
-    $query = "INSERT INTO `users`
+    echo $query = "INSERT INTO `users`
     (
       `aid`,
       `name`,
@@ -34,8 +38,8 @@ if (isset($_POST["submit"])) {
       '$name',
       '$username',
       '$email',
-      '1',
-      '0',
+      '" . $s['user_default_verify'] . "',
+      '" . $s['user_default_banned'] . "',
       '0',
       '0',
       NULL,
@@ -49,7 +53,7 @@ if (isset($_POST["submit"])) {
 }
 ?>
  
-<?php include 'assets/header.php'?>
+<?php include '../assets/header.php'?>
 
     <main>
       <div class="album py-5 bg-body-tertiary">
@@ -97,4 +101,4 @@ if (isset($_POST["submit"])) {
       </div>
     </main>
 
-  <?php include 'assets/footer.php'?>
+  <?php include '../assets/footer.php'?>

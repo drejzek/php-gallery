@@ -1,9 +1,7 @@
+<?php $admin = true; ?>
+<?php include '../sess.php'?>
+<?php include 'config.php'?>
 <?php
-
-    session_start();
-
-    include 'config.php';
-
     $id = "";
 
     $alert_type = null;

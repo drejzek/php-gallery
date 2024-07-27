@@ -9,7 +9,7 @@ if (isset($_POST["submit"])) {
   $password = trim($_POST["password"]);
 
   // Získání uloženého hesla pro zadané uživatelské jméno
-  $query = "SELECT id, name, password_md5 AS password FROM users WHERE username = '$username'";
+  $query = "SELECT id, name, password_md5 AS password, admin FROM users WHERE username = '$username'";
   $result = $conn->query($query);
 
   if ($result->num_rows == 1) {
@@ -20,7 +20,11 @@ if (isset($_POST["submit"])) {
     if (md5($password) == $hashed_password) {
       $_SESSION["user_id"] = $row["id"];
       $_SESSION["user_name"] = $row["name"];
-      header("Location: ."); // Přesměrování na hlavní stránku po přihlášení
+
+      if($row['admin'])
+        $_SESSION['user_admin'] = 1;
+
+      header("Location: ../"); // Přesměrování na hlavní stránku po přihlášení
       exit();
      } 
     else {
@@ -33,7 +37,7 @@ if (isset($_POST["submit"])) {
 }
 ?>
  
-<?php include 'assets/header.php'?>
+<?php include '../assets/header.php'?>
 
     <main>
       <div class="album py-5 bg-body-tertiary">
@@ -76,4 +80,4 @@ if (isset($_POST["submit"])) {
       </div>
     </main>
 
-  <?php include 'assets/footer.php'?>
+  <?php include '../assets/footer.php'?>

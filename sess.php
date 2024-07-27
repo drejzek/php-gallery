@@ -16,6 +16,10 @@ if (!isset($_SESSION['user_id'])) {
         header("Location: login.php");
         exit();
     }
+    else if($admin && !$_SESSION['user_admin']){    
+        header("Location: login.php");
+        exit();
+    }
 }
 else{
     $loggedInUserName = '';

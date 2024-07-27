@@ -94,25 +94,37 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="." class="nav-link px-2 link-light">Overview</a></li>
+          <li><a href="<?php echo $s['gallery_url']?>" class="nav-link px-2 link-light">Overview</a></li>
         </ul>
         
-        <?php if(isset($_SESSION['user_id'])): ?>
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <?php echo $_SESSION['user_name'] ?>
-          </a>
-          <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="users/profile.php">Profile</a></li>
+        <?php if(isset($_SESSION['user_id']) && !$_SESSION['user_admin']): ?>
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <?php echo $_SESSION['user_name'] ?>
+            </a>
+            <ul class="dropdown-menu text-small">
+              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery.php">Nová galerie</a></li>
+              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>users/profile.php">Profil</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>auth/logout.php">Odhlásit se</a></li>
             </ul>
           </div>
+          <?php elseif(isset($_SESSION['user_id']) && $_SESSION['user_admin']): ?>
+            <div class="dropdown text-end">
+              <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <?php echo $_SESSION['user_name'] ?>
+              </a>
+              <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery.php">Nová galerie</a></li>
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>admin/">Dashboard</a></li>
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>users/profile.php">Profil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>auth/logout.php">Odhlásit se</a></li>
+              </ul>
+            </div>
           <?php else: ?>
             <div class="text-end">
-              <a href="login.php" class="link-light text-decoration-none">Log in</a>
+              <a href="<?php echo $s['gallery_url']?>auth/" class="link-light text-decoration-none">Přihlásit se</a>
             </div>
           <?php endif; ?>
       </div>

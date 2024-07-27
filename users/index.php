@@ -1,8 +1,6 @@
-<?php
-
-    session_start();
-
-?>
+<?php $admin = true; ?>
+<?php include '../sess.php'?>
+<?php include 'config.php'?>
 <?php include '../assets/header.php'?>
 <style>
         .dot {

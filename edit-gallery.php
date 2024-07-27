@@ -1,7 +1,7 @@
 <?php
 
-  include 'sess.php';
-  include 'config.php';
+include 'sess.php';
+include 'config.php';
 
   $gd = null;
 
