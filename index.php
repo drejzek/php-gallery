@@ -8,7 +8,7 @@
   <div class="album py-5 bg-body-tertiary">
     <div class="container">
       <div class="d-flex">
-        <h1 class="fw-light mb-3 me-auto">Moje galerie</h1>
+        <h1 class="fw-light mb-3 me-auto"><?php echo $s['gallery_name']?></h1>
         <div class="ms-auto">
           <?php if(isset($_SESSION['user_id'])): ?>
           <a href="add-gallery.php" class="btn btn-outline-primary"><i class="fas fa-plus me-2"></i> Přidat</a>

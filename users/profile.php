@@ -27,7 +27,7 @@ $email = $_POST['email'];
 // $password = $_POST['password'];
 for($i=0;$i<2;$i++)
 $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
-$sql = "UPDATE `users` SET `username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "' WHERE id = $id";
+$sql = "UPDATE `users` SET `name`='$name', `username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "' WHERE id = $id";
 $r = mysqli_query($conn, $sql);
 }
 /* $sql = "SELECT * FROM user_privileges WHERE user_id=$id";
@@ -109,6 +109,16 @@ display: inline-block;
 <div class="container w-50 mx-auto">
 <div class="row mb-3">
 <div class="col-sm-6">
+<b>Jméno</b>
+</div>
+<div class="col-sm-6">
+<?php
+echo $row['name'];
+?>
+</div>
+</div>
+<div class="row mb-3">
+<div class="col-sm-6">
 <b>Uživatelské jméno</b>
 </div>
 <div class="col-sm-6">
@@ -186,9 +196,15 @@ echo "
 <div class="d-flex pt-4 border-bottom pb-3">
 <form class="w-50 mx-auto" method="post">
 <div class="row mb-3">
+<label for="name" class="col-sm-3 col-form-label">Uživatelské jméno</label>
+<div class="col-sm-9">
+<input type="text" name="name" class="form-control" id="name" value="<?php echo $row['name'] ?>">
+</div>
+</div>
+<div class="row mb-3">
 <label for="username" class="col-sm-3 col-form-label">Uživatelské jméno</label>
 <div class="col-sm-9">
-<input type="text" name="username" class="form-control" id="username" value="<?php echo $row['username'] ?>">
+<input type="text" name="username" class="form-control" id="username" value="<?php echo $row['username'] ?>" disabled>
 </div>
 </div>
 <div class="row mb-5">

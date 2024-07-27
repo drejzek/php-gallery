@@ -3,31 +3,48 @@ session_start();
 
 // Připojení k databázi
 include 'config.php';
+
+$errpwdnotsame = 0;
 // Zpracování formuláře přihlášení
 if (isset($_POST["submit"])) {
-  $username = trim($_POST["username"]);
-  $password = trim($_POST["password"]);
+  $name = $_POST["username"];
+  $username = $_POST["username"];
+  $email = $_POST["username"];
+  $password = md5(trim($_POST["password"]));
+  $password_rpt = md5(trim($_POST["passwordr"]));
 
-  // Získání uloženého hesla pro zadané uživatelské jméno
-  $query = "SELECT id, password FROM users WHERE username = '$username'";
-  $result = $conn->query($query);
-
-  if ($result->num_rows == 1) {
-    $row = $result->fetch_assoc();
-    $hashed_password = $row["password"];
-
-    // Ověření hesla
-    //if (password_verify($password, $hashed_password)) {
-      $_SESSION["user_id"] = $row["id"];
-      header("Location: ."); // Přesměrování na hlavní stránku po přihlášení
-      exit();
-    // } 
-    // else {
-    //   header("Location: ?passErr");
-    // }
-  } 
-  else {
-      header("Location: ?userErr");
+  if($password == $password_rpt){
+    // Získání uloženého hesla pro zadané uživatelské jméno
+    $query = "INSERT INTO `users`
+    (
+      `aid`,
+      `name`,
+      `username`,
+      `email`,
+      `verified`,
+      `banned`,
+      `admin`,
+      `folder_name`,
+      `password`,
+      `password_md5`
+    ) 
+    VALUES
+    (
+      '0',
+      '$name',
+      '$username',
+      '$email',
+      '1',
+      '0',
+      '0',
+      '0',
+      NULL,
+      '$password'
+    )";
+    $result = $conn->query($query);
+  }
+  else{
+    $errpwdnotsame = 1;
   }
 }
 ?>
@@ -37,8 +54,14 @@ if (isset($_POST["submit"])) {
     <main>
       <div class="album py-5 bg-body-tertiary">
         <div class="container">
-          <div class="d flex">
-          <form method="post" action="login.php">
+          <div class="row">
+          <form method="post" class="mx-auto col-sm-4" action="">
+            <h4>Registrace uživatele</h4>
+            <?php if($errpwdnotsame):?>
+            <div class="alert alert-danger">
+              <span><strong>Chyba: </strong>hesla se neshodují.</span>
+            </div>
+            <?php endif;?>
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="name">
                 <label for="floatingInput">Jméno</label>
@@ -48,7 +71,7 @@ if (isset($_POST["submit"])) {
                 <label for="floatingInput">Uživateské jméno</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="emaill" class="form-control" id="floatingPassword" placeholder="Password" name="emaill">
+                <input type="email" class="form-control" id="floatingPassword" placeholder="Password" name="emaill">
                 <label for="floatingPassword">E-mail</label>
               </div>
               <div class="form-floating mb-3">
@@ -62,11 +85,10 @@ if (isset($_POST["submit"])) {
               <div class="d-grid">
                 <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" name="submit">zaregistrovat</button>
               </div>
-              <div id="emailHelp" class="form-text">Kliknutím na tlačítko zaregistrovat soouhlasíte s <a href="../terms-of-use.php">podmínkami použití</a></div>
               <hr class="my-4">
               <div class="d-grid mb-2">
-                <a class="btn btn-link" href=".">
-                  <i class="fab fa-google me-2"></i> Již máte účet? Přihlašte se
+                <a class="btn btn-link text-decoration-none" href=".">
+                  Již máte účet? Přihlašte se
                 </a>
               </div>
             </form>

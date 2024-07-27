@@ -47,8 +47,13 @@
         }
     }
     
-    $sql = "UPDATE galleries SET name = '$name', descr = '$descr', upper_gallery_id = '$upperGallery', is_private = '$private', is_locked = '$locked', is_def_places = '$defPlaces', password = '$pwd' WHERE id = " . $_GET['g'];
+    $sql = "UPDATE galleries SET name = '$name', descr = '$descr', upper_gallery_id = '$upperGallery', is_private = '$private', is_locked = '$locked', is_def_places = '$defPlaces' WHERE id = " . $_GET['g'];
     $r = mysqli_query($conn, $sql);
+
+    if(!empty($_POST['gpwd'])){
+        $sql = "UPDATE galleries SET password = '$pwd' WHERE id = " . $_GET['g'];
+        $r = mysqli_query($conn, $sql);
+    }
   }
 
   if(isset($_POST['delImg'])){
@@ -148,7 +153,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="gname" class="form-label">Heslo:</label>
-                                <input type="password" name="gpwd" id="gpwd" class="form-control">
+                                <input type="password" name="gpwd" id="gpwd" class="form-control" placeholder="Nechcete-li měnit, ponechte pole prázdné">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success" name="submit"><i class="fas fa-save me-2"></i> Uložit</button>
@@ -201,7 +206,13 @@
                                                         <br>
                                                         <span class="">' . ($g['is_thumbnail'] ? 'Náhledový obrázek' : '') . '</span>
                                                         <br>
-                                                        <button data-bs-toggle="modal" data-bs-target="#imgEdit' . $g['id'] . '" class="btn btn-lg" type="button" name=""><i class="fas fa-pencil-alt"></i></button>
+                                                        <form method="post">
+                                                            <button data-bs-toggle="modal" data-bs-target="#imgEdit' . $g['id'] . '" class="btn btn-lg" type="button" name=""><i class="fas fa-pencil-alt"></i></button>
+                                                            <button class="btn text-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i></button>
+                                                            <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                            <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
+                                                            <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                        </form>
                                                     </div>
                                                 </form>
                                             </div>

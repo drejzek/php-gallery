@@ -1,7 +1,6 @@
 <?php $index = true; ?>
 <?php include 'sess.php'?>
 <?php include 'config.php'?>
-<?php include 'assets/header.php'?>
 
 <?php
 
@@ -9,7 +8,21 @@
   $r = mysqli_query($conn, $sql);
   $gi = mysqli_fetch_array($r);
 
+  if(!isset($_SESSION['user_id'])){
+    if($gi['is_locked'] && !isset($_SESSION['gallery-' . $gi['id']])){
+      header('location: gallery-unlock.php?g=' . $gi['id']);
+    }
+  }
+  else if($_SESSION['user_id'] != $gi['user_id']){
+    if($gi['is_locked'] && !isset($_SESSION['gallery-' . $gi['id']])){
+      header('location: gallery-unlock.php?g=' . $gi['id']);
+    }
+  }
+
+
 ?>
+
+<?php include 'assets/header.php'?>
 
 <main>
   <div class="album py-5 bg-body-tertiary">

@@ -18,7 +18,7 @@
     mysqli_query($conn, $sql);
 
     $sql = "SELECT * FROM galleries WHERE gid = '$gid'";
-    //header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['id']);
+    header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['id']);
   }
 
 ?>

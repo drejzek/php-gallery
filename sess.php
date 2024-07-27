@@ -32,6 +32,10 @@ else{
     }
 }
 
+$sql = "SELECT * FROM settings";
+$r_s = mysqli_query($conn, $sql);
+$s = mysqli_fetch_array($r_s);
+
 // Zkontrolujeme, zda proměnná $search existuje, a pokud ne, nastavíme ji na prázdný řetězec
 $search = isset($search) ? $search : '';
 ?>
