@@ -10,21 +10,21 @@ $db_save_settings = null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Step 2 fields
-    echo $databaseHost = isset($_POST['databaseHost']) ? $_POST['databaseHost'] : '';
-    echo $databaseName = isset($_POST['databaseName']) ? $_POST['databaseName'] : '';
-    echo $databaseUser = isset($_POST['databaseUser']) ? $_POST['databaseUser'] : '';
-    echo $databasePassword = isset($_POST['databasePassword']) ? $_POST['databasePassword'] : '';
+    $databaseHost = isset($_POST['databaseHost']) ? $_POST['databaseHost'] : '';
+    $databaseName = isset($_POST['databaseName']) ? $_POST['databaseName'] : '';
+    $databaseUser = isset($_POST['databaseUser']) ? $_POST['databaseUser'] : '';
+    $databasePassword = isset($_POST['databasePassword']) ? $_POST['databasePassword'] : '';
 
     // Step 3 fields
-    echo $userName = isset($_POST['userName']) ? $_POST['userName'] : '';
-    echo $username = isset($_POST['userame']) ? $_POST['username'] : '';
-    echo $userEmail = isset($_POST['userEmail']) ? $_POST['userEmail'] : '';
-    echo $userPassword = isset($_POST['userPassword']) ? md5($_POST['userPassword']) : '';
+    $userName = isset($_POST['userName']) ? $_POST['userName'] : '';
+    $username = isset($_POST['userame']) ? $_POST['username'] : '';
+    $userEmail = isset($_POST['userEmail']) ? $_POST['userEmail'] : '';
+    $userPassword = isset($_POST['userPassword']) ? md5($_POST['userPassword']) : '';
 
     // Step 4 fields
-    echo $galleryName = isset($_POST['galleryName']) ? $_POST['galleryName'] : '';
-    echo $galleryURL = isset($_POST['galleryURL']) ? $_POST['galleryURL'] : '';
-    echo $galleryDescr = isset($_POST['galleryDescr']) ? $_POST['galleryDescr'] : '';
+    $galleryName = isset($_POST['galleryName']) ? $_POST['galleryName'] : '';
+    $galleryURL = isset($_POST['galleryURL']) ? $_POST['galleryURL'] : '';
+    $galleryDescr = isset($_POST['galleryDescr']) ? $_POST['galleryDescr'] : '';
 
     $con = mysqli_connect($databaseHost, $databaseUser, $databasePassword, $databaseName);
 
