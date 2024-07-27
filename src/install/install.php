@@ -172,11 +172,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $progress = [
-        "db_test" = $db_test,
-        "db_save_config" = $db_save_config,
-        "db_make_tables" = $db_make_tables,
-        "db_save_user" = $db_save_user,
-        "db_save_settings" = $db_save_settings
+        "db_test" => $db_test,
+        "db_save_config" => $db_save_config,
+        "db_make_tables" => $db_make_tables,
+        "db_save_user" => $db_save_user,
+        "db_save_settings" => $db_save_settings
     ]; 
 
     // Store the progress array in the session
