@@ -72,11 +72,47 @@
         </div>
         <div class="panel panel-primary col-sm-4 p-0" id="step-1">
             <div class="panel-heading">
-                 <h3 class="panel-title">Úvod</h3>
+                 <h3 class="panel-title">Nejnovější vydání</h3>
             </div>
             <div class="panel-body">
-                <h3>Open source PHP Gallery</h3>
-                
+                <?php
+                    $repoOwner = 'drejzek';  // GitHub username
+                    $repoName = 'php-gallery';  // Repository name
+                    //$apiUrl = "https://api.github.com/repos/$repoOwner/$repoName/releases";
+
+                    // Set up the cURL request
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $apiUrl);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_USERAGENT, 'PHP script');
+                    $response = curl_exec($ch);
+                    curl_close($ch);
+
+                    // Decode the JSON response
+                    $releases = json_decode($response, true);
+
+                    // Check if there are any releases
+                    if (empty($releases)) {
+                        echo "No releases found.";
+                        exit;
+                    }
+
+                    // Display the latest 5 releases
+                    $releasesToShow = array_slice($releases, 0, 5);
+
+                    echo "<h1>Latest 5 Releases</h1>";
+                    echo "<ul>";
+                    foreach ($releasesToShow as $release) {
+                        $tagName = htmlspecialchars($release['tag_name']);
+                        $releaseName = htmlspecialchars($release['name']);
+                        $publishedAt = htmlspecialchars($release['published_at']);
+                        $htmlUrl = htmlspecialchars($release['html_url']);
+                        echo "<li>";
+                        echo "<a href=\"$htmlUrl\">$releaseName ($tagName)</a> - Published on $publishedAt";
+                        echo "</li>";
+                    }
+                    echo "</ul>";
+                ?>
             </div>
         </div>
     </div>

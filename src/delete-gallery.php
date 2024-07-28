@@ -26,10 +26,35 @@
         mysqli_query($conn, $sql);
     }
     else{
+        $sql_sub = "SELECT * FROM galleries WHERE upper_gallery_id = '$id'";
+        $r_sub = mysqli_query($conn, $sql_sub);
+        
+        while($sub = mysqli_fetch_array($r_sub)){
+            $sql_files = "SELECT * FROM files WHERE gallery_id ='" . $sub['id'] . "'";
+            $r_files = mysqli_query($conn, $sql_files);
+
+            while($file = mysqli_fetch_array($r_files)){
+                unlink('files/' . $file['name']);
+            }
+
+            $sql_del_files = "DELETE FROM files WHERE gallery_id = '" . $sub['id'] . "'";
+            $r_del_files = mysqli_query($conn, $sql_del_files);
+        }
+        
         $sql = "DELETE FROM galleries WHERE upper_gallery_id = '$id'";
         $r = mysqli_query($conn, $sql);
     }
     
+
+    $sql_files = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "'";
+    $r_files = mysqli_query($conn, $sql_files);
+
+    while($file = mysqli_fetch_array($r_files)){
+        unlink('files/' . $file['name']);
+        $sql_del_files = "DELETE FROM files WHERE name = '" . $file['name'] . "'";
+        $r_del_files = mysqli_query($conn, $sql_del_files);
+    }
+
     $sql = "DELETE FROM galleries WHERE id = '" . $_GET['g'] . "'";
     $r = mysqli_query($conn, $sql);
 
