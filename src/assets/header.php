@@ -36,10 +36,18 @@ if($admin && !$_SESSION['user_admin']){
         border: 2px dashed rgb(0, 135, 247);
         border-image: none;
       }
-
+      *{
+        color: <?php echo $s['theme_font_color']?>
+      }
       .g-img{
         max-width: 225px;
         max-height: 225px;
+      }
+      header{
+        background-color: <?php echo $s['theme_bg_header_color']?>;
+      }
+      .album{
+        background-color: <?php echo $s['theme_bg_page_color']?>;
       }
     </style>
   </head>
@@ -95,7 +103,7 @@ if($admin && !$_SESSION['user_admin']){
       </ul>
     </div>
 
-    <header class="p-3 border-bottom bg-black">
+    <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">

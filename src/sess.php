@@ -4,7 +4,7 @@ if(empty($conn)){
     header('location: install/');
 }
 
-$sql = "SELECT * FROM settings";
+$sql = "SELECT * FROM settings LIMIT 1";
 $r_s = mysqli_query($conn, $sql);
 $s = mysqli_fetch_array($r_s);
 

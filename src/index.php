@@ -5,7 +5,7 @@
 
 
 <main>
-  <div class="album py-5 bg-body-tertiary">
+  <div class="album py-5">
     <div class="container">
       <div class="d-flex">
         <h1 class="fw-light mb-3 me-auto"><?php echo $s['gallery_name']?></h1>

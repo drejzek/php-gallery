@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: localhost
--- Vytvořeno: Sob 27. čec 2024, 19:46
+-- Vytvořeno: Ned 28. čec 2024, 20:04
 -- Verze serveru: 8.0.36
 -- Verze PHP: 8.2.21
 
@@ -59,15 +59,20 @@ CREATE TABLE `galleries` (
 
 CREATE TABLE `settings` (
   `id` int NOT NULL,
-  `gallery_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `gallery_descr` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `gallery_url` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `gallery_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `gallery_descr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `gallery_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `gallery_default_private` tinyint NOT NULL,
   `gallery_default_lock` tinyint NOT NULL,
   `user_default_verify` tinyint NOT NULL,
   `user_default_banned` tinyint NOT NULL,
   `gallery_private` tinyint NOT NULL,
-  `allow_signup` tinyint NOT NULL
+  `allow_signup` tinyint NOT NULL,
+  `theme_bg_header_color` varchar(7) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#000000',
+  `theme_bg_page_color` varchar(7) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#f8f9fa',
+  `theme_bg_gallery_card_color` varchar(7) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#ffffff',
+  `theme_bg_footer_color` varchar(7) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#ffffff',
+  `theme_font_color` varchar(7) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '#212529'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

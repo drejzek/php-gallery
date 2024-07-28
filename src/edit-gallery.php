@@ -100,7 +100,7 @@ include 'sess.php';
                     <div class="row mb-3 mt-5">
                         <form action="" method="post" class="mx-auto col-sm-6">
                             <div class="d-flex mb-3">
-                                <h1 class="fw-light mb-3 me-auto">Upravit galerii</h1>
+                                <h1 claess="fw-light mb-3 me-auto">Upravit galerii</h1>
                                 <button class="btn" type="button" onclick="location.href='gallery.php?g=<?php echo $gd['id']?>'"><i class="fas fa-arrow-alt-circle-left"></i></button>
                             </div>
                             <div class="form-group mb-3">
