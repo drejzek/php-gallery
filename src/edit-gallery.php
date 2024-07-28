@@ -95,17 +95,6 @@ include 'sess.php';
     <main>
         <div class="album py-5 bg-body-tertiary">
         <div class="container">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Základní informace</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Fotografie</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Možnosti</button>
-                </li>
-            </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                     <div class="row mb-3 mt-5">
@@ -159,106 +148,8 @@ include 'sess.php';
                                 <button type="submit" class="btn btn-success" name="submit"><i class="fas fa-save me-2"></i> Uložit</button>
                             </div>
                         </form>
-                    </div>
-                </div>
-                </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <div class="row mt-5">
-                        <div class="col-sm-6 mx-auto">
-                            <div class="list-group">
-                                <div class="list-group-item d-flex">
-                                    <h4 class="me-auto">Nahrané soubory</h4>
-                                    <a href="add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-primary"><i class="fas fa-upload"></i> Nahrát</a>
-                                </div>
-                                <?php
-                                    /* $sql = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "' ORDER BY id ASC";
-                                    $r = mysqli_query($conn, $sql);
-                                    while($g = mysqli_fetch_array($r)){
-                                        echo '
-                                            <div class="list-group-item">
-                                                <form class="d-flex" method="post">
-                                                    <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
-                                                    <div class="">
-                                                        <span class="fw-bold">' . $g['name'] . '</span>
-                                                        <br>
-                                                        <span class="">' . $g['size'] . '</span>
-                                                        <br>
-                                                        <br>
-                                                        <input type="hidden" value="' . $g['id'] . '" name="fid">
-                                                        <input type="hidden" value="' . $g['name'] . '" name="fname">
-                                                        <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
-                                                        <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        ';
-                                    }  */
-
-                                    $sql = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "' ORDER BY id ASC";
-                                    $r = mysqli_query($conn, $sql);
-                                    while($g = mysqli_fetch_array($r)){
-                                        echo '
-                                            <div class="list-group-item">
-                                                <form class="d-flex" method="post">
-                                                    <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
-                                                    <div class="">
-                                                        <span class="fw-bold">' . $g['name'] . '</span>
-                                                        <br>
-                                                        <span class="">' . ($g['is_thumbnail'] ? 'Náhledový obrázek' : '') . '</span>
-                                                        <br>
-                                                        <form method="post">
-                                                            <button data-bs-toggle="modal" data-bs-target="#imgEdit' . $g['id'] . '" class="btn btn-lg" type="button" name=""><i class="fas fa-pencil-alt"></i></button>
-                                                            <button class="btn text-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i></button>
-                                                            <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                            <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
-                                                            <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                        </form>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-                                            <div class="modal" id="imgEdit' . $g['id'] . '">
-                                                <div class="modal-dialog modal-lg modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <span class="modal-title">Upravit fotografii</span>
-                                                            <button class="btn-close" data-bs-dismiss="modal"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form class="d-flex" method="post">
-                                                                <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
-                                                                <div class="w-100">
-                                                                    <span class="fw-bold">' . $g['name'] . '</span>
-                                                                    <div class="form-group my-3">
-                                                                        <label for="" class="form-label">Alternativní text</label>
-                                                                        <div class="input-group">
-                                                                            <input type="text" name="alt_text" id="" class="form-control" value="' . $g['alt_text'] . '">
-                                                                            <input type="submit" name="alt_textSubmit" id="" class="btn btn-success" value="Uložit">
-                                                                        </div>
-                                                                    </div>
-                                                                    <br>
-                                                                    <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
-                                                                    <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
-                                                                    <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                                    <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
-                                                                    <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ';
-                                    } 
-                                ?> 
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                    <div class="row">
-                        <div class="col-sm-6 mx-auto">
-                            <div class="container rounded border d-flex p-3">
+                        <div class="mx-auto col-sm-6">
+                            <div class="d-flex bg-white border p-3 mb-3">
                                 <h4>Smazat galerii/album</h4>
                                 <div class="ms-auto">
                                     <form action="delete-gallery.php?g=<?php echo $_GET['g']?>" method="post">
@@ -268,6 +159,110 @@ include 'sess.php';
                                     </form>
                                 </div>
                             </div>
+                            <div class="list-group">
+                                <div class="list-group-item d-flex">
+                                    <h4 class="me-auto">Nahrané soubory</h4>
+                                    <a href="add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-primary"><i class="fas fa-upload"></i> Nahrát</a>
+                                </div>
+                                <?php
+                                        /* $sql = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "' ORDER BY id ASC";
+                                        $r = mysqli_query($conn, $sql);
+                                        while($g = mysqli_fetch_array($r)){
+                                            echo '
+                                                <div class="list-group-item">
+                                                    <form class="d-flex" method="post">
+                                                        <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
+                                                        <div class="">
+                                                            <span class="fw-bold">' . $g['name'] . '</span>
+                                                            <br>
+                                                            <span class="">' . $g['size'] . '</span>
+                                                            <br>
+                                                            <br>
+                                                            <input type="hidden" value="' . $g['id'] . '" name="fid">
+                                                            <input type="hidden" value="' . $g['name'] . '" name="fname">
+                                                            <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
+                                                            <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            ';
+                                        }  */
+
+                                        $sql = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "' ORDER BY id ASC";
+                                        $r = mysqli_query($conn, $sql);
+                                        while($g = mysqli_fetch_array($r)){
+                                            echo '
+                                                <div class="list-group-item">
+                                                    <form class="d-flex" method="post">
+                                                        <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
+                                                        <div class="">
+                                                            <span class="fw-bold">' . $g['name'] . '</span>
+                                                            <br>
+                                                            <span class="">' . ($g['is_thumbnail'] ? 'Náhledový obrázek' : '') . '</span>
+                                                            <br>
+                                                            <form method="post">
+                                                                <button data-bs-toggle="modal" data-bs-target="#imgEdit' . $g['id'] . '" class="btn btn-lg" type="button" name=""><i class="fas fa-pencil-alt"></i></button>
+                                                                <button class="btn text-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i></button>
+                                                                <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                                <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
+                                                                <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                            </form>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div class="modal" id="imgEdit' . $g['id'] . '">
+                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <span class="modal-title">Upravit fotografii</span>
+                                                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form class="d-flex" method="post">
+                                                                    <img src="files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
+                                                                    <div class="w-100">
+                                                                        <span class="fw-bold">' . $g['name'] . '</span>
+                                                                        <div class="form-group my-3">
+                                                                            <label for="" class="form-label">Alternativní text</label>
+                                                                            <div class="input-group">
+                                                                                <input type="text" name="alt_text" id="" class="form-control" value="' . $g['alt_text'] . '">
+                                                                                <input type="submit" name="alt_textSubmit" id="" class="btn btn-success" value="Uložit">
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
+                                                                        <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
+                                                                        <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                                        <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
+                                                                        <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ';
+                                        } 
+                                    ?> 
+                            <div> 
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div class="row mt-5">
+                        <div class="col-sm-6 mx-auto">
+
+                                
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                    <div class="row">
+                        <div class="col-sm-6 mx-auto">
+                            
                         </div>
                     </div>
                 </div>
