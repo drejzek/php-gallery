@@ -1,8 +1,14 @@
 <?php
+
 session_start();
 
 // Připojení k databázi
 include 'config.php';
+
+$sql = "SELECT * FROM settings LIMIT 1";
+$r_s = mysqli_query($conn, $sql);
+$s = mysqli_fetch_array($r_s);
+
 // Zpracování formuláře přihlášení
 if (isset($_POST["submit"])) {
   $username = trim($_POST["username"]);

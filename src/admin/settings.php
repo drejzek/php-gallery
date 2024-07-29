@@ -145,6 +145,30 @@ include '../sess.php';
                             </li>
                         </ul>
 
+                        <h5 class="mt-5">Barevné schéma</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva pozadí hlavičky</span>
+                                <input type="color" name="theme_bg_header_color" id="" value="<?php echo $s['theme_bg_header_color']?>">
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva pozadí webu</span>
+                                <input type="color" name="theme_bg_page_color" id="" value="<?php echo $s['theme_bg_page_color']?>">
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva pozadí karty galerie</span>
+                                <input type="color" name="theme_bg_gallery_card_color" id="" value="<?php echo $s['theme_bg_gallery_card_color']?>">
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva pozadí patičky</span>
+                                <input type="color" name="theme_bg_footer_color" id="" value="<?php echo $s['theme_bg_footer_color']?>">
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva písma</span>
+                                <input type="color" name="theme_font_color" id="" value="<?php echo $s['theme_font_color']?>">
+                            </li>
+                        </ul>
+
                         <div class="form-group mt-5">
                             <button type="submit" class="btn btn-success" name="submit"><i class="fas fa-save me-2"></i> Uložit</button>
                         </div>

@@ -33,10 +33,10 @@
         $email = $_POST['email'];
         // $password = $_POST['password'];
 
-        for($i=0;$i<2;$i++)
+        for($i=0;$i<3;$i++)
             $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
 
-        $sql = "UPDATE `users` SET `name`='$name',`username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "' WHERE id = $id";
+        $sql = "UPDATE `users` SET `name`='$name',`username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "', `admin`='" . $sfield[3] . "' WHERE id = $id";
         $r = mysqli_query($conn, $sql);
     }
 
@@ -251,6 +251,14 @@
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch" id="banned" name="field[1]" <?php echo $row['banned'] ? "checked" : "" ?>>
                                         <label class="form-check-label" for="banned">Zablokovaný</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-10 offset-sm-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="banned" name="field[1]" <?php echo $row['admin'] ? "checked" : "" ?>>
+                                        <label class="form-check-label" for="banned">Administrátor</label>
                                     </div>
                                 </div>
                             </div>
