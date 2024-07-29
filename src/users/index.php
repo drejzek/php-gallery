@@ -1,6 +1,13 @@
 <?php $admin = true; ?>
 <?php include 'config.php'?>
 <?php include '../sess.php'?>
+<?php
+
+    if($_SESSION['user_admin'] != 1){
+        header('location: ' . $s['gallery_url']);
+    }
+
+?>
 <?php include '../assets/header.php'?>
 <style>
         .dot {
@@ -48,7 +55,7 @@
             // Function to update user table
             function updateUserTable() {
                 $.ajax({
-                    url: "get-users-mocz.php", // URL to fetch updated user data
+                    url: "get-users.php", // URL to fetch updated user data
                     type: "GET",
                     success: function(data) {
                         $('#user-table tbody').html(data); // Update table body with fetched data

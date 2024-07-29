@@ -3,6 +3,13 @@
 <?php include '../sess.php'?>
 <?php
 
+    if($_SESSION['user_admin'] != 1){
+        header('location: ' . $s['gallery_url']);
+    }
+
+?>
+<?php
+
 // Funkce pro generování unikátního uživatelského jména
 function generateUniqueUsername($baseUsername, $conn) {
     $g_username = $baseUsername;

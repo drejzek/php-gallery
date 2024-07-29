@@ -2,6 +2,13 @@
 <?php include 'config.php'?>
 <?php include '../sess.php'?>
 <?php
+
+    if($_SESSION['user_admin'] != 1){
+        header('location: ' . $s['gallery_url']);
+    }
+
+?>
+<?php
     $id = "";
 
     $alert_type = null;
@@ -36,8 +43,14 @@
         for($i=0;$i<3;$i++)
             $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
 
-        $sql = "UPDATE `users` SET `name`='$name',`username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "', `admin`='" . $sfield[3] . "' WHERE id = $id";
+        $sql = "UPDATE `users` SET `name`='$name',`username`='$username', `email`='$email', `verified`='" . $sfield[0] . "', `banned`='" . $sfield[1] . "', `admin`='" . $sfield[2] . "' WHERE id = $id";
         $r = mysqli_query($conn, $sql);
+    }
+
+    if(isset($_POST['yes'])){
+        $sql = "DELETE FROM users WHERE id = " . $row['id'];
+        mysqli_query($conn, $sql);
+        header('location: .');
     }
 
     /* $sql = "SELECT * FROM user_privileges WHERE user_id=$id";
@@ -86,8 +99,8 @@
     <div class="container mt-4">
         <nav aria-label="breadcrumb mb-4">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item">Úprava uživatele</li>
+                <li class="breadcrumb-item"><a href="../.">Home</a></li>
+                <li class="breadcrumb-item"><a href=".">Uživatelé</a></li>
                 <li class="breadcrumb-item active" aria-current="page"><?php echo $row['username']?></li>
             </ol>
         </nav>
@@ -262,7 +275,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-5">
+                                <div class="col-sm-10 offset-sm-2 border rounded d-flex p-3">
+                                    <h5 class="me-auto">Smazat uživatele</h5>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#mDeleteUser">Smazat</button>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary" name="submit-edits">Uložit</button>
+                            <div class="modal" id="mDeleteUser">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="text-center py-3">
+                                                <h5>Opravdu si přejete smazat uživatele <?php echo $row['username']?></h5>
+                                                <span>Tuto akci nelze odvolat!</span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-times"></i> Ne</button>        
+                                            <button name="yes" type="submit" class="btn btn-outline-danger"><i class="fas fa-check"></i> Ano</button>        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
