@@ -22,8 +22,8 @@ if($admin && !$_SESSION['user_admin']){
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="/gallery/assets/bootstrap.css" rel="stylesheet">
-    <link href="/gallery/assets/style.css" rel="stylesheet">
+    <link href="<?php echo $s['gallery_url']?>assets/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo $s['gallery_url']?>assets/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>

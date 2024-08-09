@@ -21,13 +21,18 @@ body {
     width: 100%;
     position: relative;
 }
+.stepwizard .btn{
+    background-color: #449d44;
+    color: #fff;
+}
 .stepwizard-step button[disabled] {
     /*opacity: 1 !important;
     filter: alpha(opacity=100) !important;*/
 }
 .stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
     opacity:1 !important;
-    color:#bbb;
+    color: #bbb;
+    background-color: #fff;
 }
 .stepwizard-row:before {
     top: 14px;
@@ -52,4 +57,8 @@ body {
     font-size: 12px;
     line-height: 1.428571429;
     border-radius: 15px;
+}
+
+.mx-auto{
+    margin: 0px auto;
 }

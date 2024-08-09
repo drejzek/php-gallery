@@ -3,8 +3,17 @@
 session_start();
 
 // Check if the progress array exists in the session
-if (isset($_SESSION['progress'])) {
-    $progress = $_SESSION['progress'];
+if (isset($_GET['result'])) {
+    $result = $_GET['result'];
+
+    $results = explode(';', $result);
+
+    $config_file = explode(':', $results[0])[1];
+    $db_test = explode(':', $results[1])[1];
+    $tables = explode(':', $results[2])[1];
+    $user = explode(':', $results[3])[1];
+    $settings = explode(':', $results[4])[1];
+
 } else {
     echo "No progress data found.";
     exit();
@@ -47,7 +56,7 @@ if (isset($_SESSION['progress'])) {
                     <span class="me-auto">
                         Připojení k databázi
                     </span>
-                    <?php if ($progress['db_test']): ?>
+                    <?php if ($db_test): ?>
                         <i class="fas fa-check-circle text-success"></i>
                     <?php else: ?>
                         <i class="fas fa-times-circle bg-danger p-2 rounded-circle"></i>
@@ -57,7 +66,7 @@ if (isset($_SESSION['progress'])) {
                     <span class="me-auto">
                         Uložení konfigurace
                     </span>
-                    <?php if ($progress['db_save_config']): ?>
+                    <?php if ($config_file): ?>
                         <i class="fas fa-check-circle text-success"></i>
                     <?php else: ?>
                         <i class="fas fa-times-circle text-danger"></i>
@@ -67,7 +76,7 @@ if (isset($_SESSION['progress'])) {
                     <span class="me-auto">
                         Vytvoření tabulek v databázi
                     </span>
-                    <?php if ($progress['db_make_tables']): ?>
+                    <?php if ($tables): ?>
                         <i class="fas fa-check-circle text-success"></i>
                     <?php else: ?>
                         <i class="fas fa-times-circle text-danger"></i>
@@ -77,7 +86,7 @@ if (isset($_SESSION['progress'])) {
                     <span class="me-auto">
                         Vytvoření uživatele
                     </span>
-                    <?php if ($progress['db_save_user']): ?>
+                    <?php if ($user): ?>
                         <i class="fas fa-check-circle text-success"></i>
                     <?php else: ?>
                         <i class="fas fa-times-circle text-danger"></i>
@@ -87,7 +96,7 @@ if (isset($_SESSION['progress'])) {
                     <span class="me-auto">
                         Uložení nastavení
                     </span>
-                    <?php if ($progress['db_save_settings']): ?>
+                    <?php if ($settings): ?>
                         <i class="fas fa-check-circle text-success"></i>
                     <?php else: ?>
                         <i class="fas fa-times-circle text-danger"></i>

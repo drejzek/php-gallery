@@ -4,7 +4,7 @@
 
 <?php
 
-  $sql = "SELECT * FROM galleries WHERE id = "  . $_GET['g'];
+  $sql = "SELECT * FROM galleries WHERE id = '"  . $_GET['g'] . "' ORDER BY name ASC";
   $r = mysqli_query($conn, $sql);
   $gi = mysqli_fetch_array($r);
 
@@ -41,7 +41,7 @@
       </div>
       <?php
       
-        $sql = "SELECT * FROM galleries WHERE upper_gallery_id = " .  $gi['id'];
+        $sql = "SELECT * FROM galleries WHERE upper_gallery_id = '" .  $gi['id'] . "' ORDER BY name ASC";
         if(mysqli_query($conn, $sql)->num_rows > 0):
       ?>
       <div class="d-flex mb-3">
@@ -54,7 +54,7 @@
 
           if (isset($_SESSION['user_id'])) {
 
-            $sql = "SELECT * FROM galleries WHERE user_id = '" . $_SESSION['user_id'] . "' AND upper_gallery_id = " .  $gi['id'];
+            $sql = "SELECT * FROM galleries WHERE user_id = '" . $_SESSION['user_id'] . "' AND upper_gallery_id = '" .  $gi['id'] . "' ORDER BY name ASC";
             $r = mysqli_query($conn, $sql);
             while($g = mysqli_fetch_array($r)){
               $id = $g['id'];
@@ -99,7 +99,7 @@
             } 
           }
           else{
-            $sql = "SELECT * FROM galleries WHERE upper_gallery_id = " .  $gi['id'];
+            $sql = "SELECT * FROM galleries WHERE upper_gallery_id = " .  $gi['id'] . "' ORDER BY name ASC";
             $r = mysqli_query($conn, $sql);
             while($g = mysqli_fetch_array($r)){
               $id = $g['id'];
