@@ -20,10 +20,11 @@ $sql_settings = "INSERT INTO `settings`
                     `gallery_name`,
                     `gallery_descr`,
                     `gallery_url`,
+                    `gallery_theme`,
                     `gallery_default_private`,
                     `gallery_default_lock`,
                     `user_default_verify`,
-                    `user_default_banned`, 
+                    `user_default_banned`,
                     `gallery_private`,
                     `allow_signup`
                 )
@@ -31,6 +32,7 @@ $sql_settings = "INSERT INTO `settings`
                     '$galleryName',
                     '$galleryDescr',
                     '$galleryURL',
+                    'default',
                     '0',
                     '0',
                     '1',

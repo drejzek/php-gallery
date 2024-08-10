@@ -38,7 +38,14 @@ if (isset($_POST["submit"])) {
       else
         $_SESSION['user_admin'] = 0;
 
-      header("Location: ../"); // Přesměrování na hlavní stránku po přihlášení
+        if(isset($_GET['url'])){
+          header("Location: ../" . $_GET['url']); // Přesměrování na hlavní stránku po přihlášení
+          
+        }
+        else{
+          header("Location: ../"); // Přesměrování na hlavní stránku po přihlášení
+        }
+
       exit();
      } 
     else {

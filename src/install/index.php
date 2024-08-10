@@ -90,7 +90,6 @@
                         SOFTWARE.</textarea>
                         <br>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Další</button>
-                        <button class="btn btn-success pull-right" type="submit" name="submit">Finish!</button>
                     </div>
                 </div>
                 
@@ -103,19 +102,19 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label class="control-label">Adresa serveru:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseHost" value="localhost">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseHost">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Uživatelské jméno:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseUser" value="root">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseUser">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Heslo:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="databasePassword" value="root">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="databasePassword">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Název databáze:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseName" value="gallery-test">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="databaseName">
                                 </div>
                                 <button class="btn btn-primary nextBtn pull-right" type="button">Další</button>
                             </div>
@@ -132,19 +131,19 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label class="control-label">Jméno:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="userName" value="Admin">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="userName">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Uživatelské jméno:</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="username" value="admin">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="username">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">E-mail:</label>
-                                    <input maxlength="200" type="email" required="required" class="form-control" name="userEmail" value="admin@admin">
+                                    <input maxlength="200" type="email" required="required" class="form-control" name="userEmail">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Heslo:</label>
-                                    <input maxlength="200" type="password" required="required" class="form-control" name="userPassword" value="admin">
+                                    <input maxlength="200" type="password" required="required" class="form-control" name="userPassword">
                                 </div>
                                 <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                             </div>
@@ -161,16 +160,17 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label class="control-label">Název galerie</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="galleryName" value="Moje galerie">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="galleryName">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">URL adresa galerie</label>
-                                    <input maxlength="200" type="text" required="required" class="form-control" name="galleryURL" value="/repos/php-gallery-test/src/">
+                                    <input maxlength="200" type="text" required="required" class="form-control" name="galleryURL">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Popis</label>
-                                    <textarea maxlength="200" type="text" required="required" class="form-control" name="galleryDescr">Moje Galerie</textarea>
+                                    <textarea maxlength="200" type="text" required="required" class="form-control" name="galleryDescr"></textarea>
                                 </div>
+                                <button class="btn btn-success pull-right" type="submit" name="submit">Finish!</button>
                             </div>
                         </div>
                     </div>
