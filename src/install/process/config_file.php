@@ -8,6 +8,8 @@
     $databaseUser = isset($_POST['databaseUser']) ? $_POST['databaseUser'] : '';
     $databasePassword = isset($_POST['databasePassword']) ? $_POST['databasePassword'] : '';
 
+    $connectionResult = testMysqlConnection($databaseHost, $databaseUser, $databasePassword, $databaseName);
+
     if ($connectionResult) {
         $db_test = 1;
         $config_content = "<?php\n";
@@ -19,7 +21,12 @@
         $config_content .= "\$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);";
 
         if (file_put_contents('../../config.php', $config_content) !== false) {
-            echo 'config_file:1;';
+            if(file_get_contents('../../config.php') != ""){
+                echo 'config_file:1;';
+            }
+            else{
+                echo 'config_file:0;';
+            }
         }
         else {
             echo 'config_file:0;';

@@ -42,12 +42,6 @@ $sql_settings = "INSERT INTO `settings`
 $r_settings = mysqli_query($con, $sql_settings);
 
 if($r_settings){
-        $htaccess = "ErrorDocument 404 " . $url . "etc/404.php\n"; 
-        $htaccess .= "RewriteEngine On\n"; 
-        $htaccess .= "RewriteBase $url\n"; 
-        $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)$ gallery.php?g=$1 [L,QSA]\n"; 
-        $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)/edit$ gallery.php?g=$1&edit [L,QSA]\n"; 
-        file_put_contents("../../.htaccess", $htaccess);
     echo 'settings:1;';
 }
 else{

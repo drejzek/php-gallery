@@ -75,48 +75,55 @@ document.getElementById('InstallWizzard').addEventListener('submit', async funct
     var resultString = '';
     var errors = '';
 
+    // Funkce pro zpracování odpovědi
+    function processResponse(response, type) {
+        var parts = response.split(';');
+        var status = parts[0].split(':')[1]; // Hodnota 1 nebo 0
+        resultString += type + ':' + status + ';';
+        
+        if (status === '0' && parts.length > 1) {
+            var error = parts[1].split(':')[1]; // Důvod chyby
+            errors += type + ':' + error + ';';
+        }
+    }
+
     try {
         try {
-            database = await sendRequest('process/database.php');
-            resultString += 'database:1;';
+            var databaseResponse = await sendRequest('process/database.php');
+            processResponse(databaseResponse, 'database');
         } catch (error) {
-            resultString += 'database:0;';
-            errors += 'database:' + error + ';';
+            errors += 'database:request_failed;';
         }
         await delay(1000);
 
         try {
-            config_file = await sendRequest('process/config_file.php');
-            resultString += 'config_file:1;';
+            var configFileResponse = await sendRequest('process/config_file.php');
+            processResponse(configFileResponse, 'config_file');
         } catch (error) {
-            resultString += 'config_file:0;';
-            errors += 'config_file:' + error + ';';
+            errors += 'config_file:request_failed;';
         }
         await delay(1000);
 
         try {
-            tables = await sendRequest('process/tables.php');
-            resultString += 'tables:1;';
+            var tablesResponse = await sendRequest('process/tables.php');
+            processResponse(tablesResponse, 'tables');
         } catch (error) {
-            resultString += 'tables:0;';
-            errors += 'tables:' + error + ';';
+            errors += 'tables:request_failed;';
         }
         await delay(1000);
 
         try {
-            user = await sendRequest('process/user.php');
-            resultString += 'user:1;';
+            var userResponse = await sendRequest('process/user.php');
+            processResponse(userResponse, 'user');
         } catch (error) {
-            resultString += 'user:0;';
-            errors += 'user:' + error + ';';
+            errors += 'user:request_failed;';
         }
 
         try {
-            user = await sendRequest('process/settings.php');
-            resultString += 'settings:1;';
+            var settingsResponse = await sendRequest('process/settings.php');
+            processResponse(settingsResponse, 'settings');
         } catch (error) {
-            resultString += 'settings:0;';
-            errors += 'settings:' + error + ';';
+            errors += 'settings:request_failed;';
         }
 
         // Přesměrování na finální stránku s výsledky a chybami

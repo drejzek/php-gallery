@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    if(!$index || $loginInPrivate){    
+    if(!$index || $loginInPrivate && $s['gallery_private']){    
         header("Location: auth/");
         exit();
     }

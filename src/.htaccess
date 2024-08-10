@@ -1,0 +1,5 @@
+ErrorDocument 404 /repos/php-gallery/src/etc/404.php
+RewriteEngine On
+RewriteBase /repos/php-gallery/src/
+RewriteRule ^album/([a-zA-Z0-9-]+)$ gallery.php?g=$1 [L,QSA]
+RewriteRule ^album/([a-zA-Z0-9-]+)/edit$ gallery.php?g=$1&edit [L,QSA]

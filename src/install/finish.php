@@ -103,7 +103,12 @@ if (isset($_GET['result'])) {
                     <?php endif; ?>
                 </li>
             </ul>
-            <a href="../" class="btn btn-primary">Dokončit</a>
+
+            <div class="container border rounded">
+                <p>Po přihlášení budete přesměrováni do nastavení. Pro dokončení instalace nastavení uložte, abyste dokončili instalaci.</p>
+            </div>
+
+            <a href="../auth/?url=admin/settings.php" class="btn btn-primary">Dokončit</a>
         </div>
     </div>
 </div>

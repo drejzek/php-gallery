@@ -6,6 +6,6 @@ session_unset();
 session_destroy();
 
 // Přesměrování na přihlašovací stránku
-header("Location: index.php");
+header("Location: ../.");
 exit();
 ?>
