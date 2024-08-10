@@ -1,4 +1,4 @@
-<?php $index = true; ?>
+<?php $index = true; $loginInPrivate = true;?>
 <?php include 'config.php'?>
 <?php include 'sess.php'?>
 <?php include 'assets/header.php'?>
@@ -53,8 +53,8 @@
                       <p class="card-text">' . $g['descr'] . '</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <a href="gallery.php?g=' . $g['id'] . '" type="button" class="btn btn-sm btn-outline-secondary">Zobrazit</a>
-                          <a href="edit-gallery.php?g=' . $g['id'] . '" type="button" class="btn btn-sm btn-outline-secondary">Upravit</a>
+                          <a href="album/' . $g['identifier'] . '" type="button" class="btn btn-sm btn-outline-secondary">Zobrazit</a>
+                          <a href="album/' . $g['identifier'] . '/edit" type="button" class="btn btn-sm btn-outline-secondary">Upravit</a>
                         </div>
                         <small class="text-body-secondary">' . $photos . ' ' . $photos_text . '</small>
                       </div>

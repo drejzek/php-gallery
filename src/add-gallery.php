@@ -3,8 +3,35 @@
 include 'config.php';
 include 'sess.php';
 
+function toSlug($text) {
+  // Převod na malá písmena
+  $text = mb_strtolower($text, 'UTF-8');
+
+  // Nahrazení diakritiky
+  $text = strtr($text, [
+      'ě' => 'e', 'š' => 's', 'č' => 'c', 'ř' => 'r', 'ž' => 'z', 
+      'ý' => 'y', 'á' => 'a', 'í' => 'i', 'é' => 'e', 'ó' => 'o', 
+      'ů' => 'u', 'ú' => 'u', 'ť' => 't', 'ň' => 'n', 'ď' => 'd', 
+      'ĺ' => 'l', 'ľ' => 'l', 'ä' => 'a', 'ö' => 'o', 'ü' => 'u',
+      'ť' => 't', 'ó' => 'o', 'ě' => 'e', 'ř' => 'r', 'ů' => 'u',
+      'ň' => 'n', 'Ě' => 'e', 'Š' => 's', 'Č' => 'c', 'Ř' => 'r', 
+      'Ž' => 'z', 'Ý' => 'y', 'Á' => 'a', 'Í' => 'i', 'É' => 'e',
+      'Ó' => 'o', 'Ú' => 'u', 'Ů' => 'u', 'Ď' => 'd', 'Ť' => 't',
+      'Ň' => 'n'
+  ]);
+
+  // Nahrazení všech ostatních nepísmen a čísel pomlčkami
+  $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+
+  // Odebrání přebytečných pomlček na začátku a na konci
+  $text = trim($text, '-');
+
+  return $text;
+}
+
   if(isset($_POST['submit'])){
     $name = $_POST['gname'];
+    $identifier = toSlug($name);
     $descr = $_POST['gdescr'];
     $upperGallery = $_POST['upperGallery'];
     $pwd = $_POST['gpwd'];
@@ -14,11 +41,11 @@ include 'sess.php';
 
     $gid = rand(100000, 999999);
     
-    $sql = "INSERT INTO `galleries`(`name`, `descr`, `upper_gallery_id`, `max_items_count`, `is_private`, `is_locked`, `password`, `gid`, `user_id`) VALUES ('$name', '$descr', '$upperGallery', '999', '" . $sfield[0] . "', '" . $sfield[1] . "', '" . md5($pwd) . "', '$gid','" . $_SESSION['user_id'] . "')";
+    $sql = "INSERT INTO `galleries`(`name`,`identifier`, `descr`, `upper_gallery_id`, `max_items_count`, `is_private`, `is_locked`, `password`, `gid`, `user_id`) VALUES ('$name', '$identifier', '$descr', '$upperGallery', '999', '" . $sfield[0] . "', '" . $sfield[1] . "', '" . md5($pwd) . "', '$gid','" . $_SESSION['user_id'] . "')";
     mysqli_query($conn, $sql);
 
     $sql = "SELECT * FROM galleries WHERE gid = '$gid'";
-    header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['id']);
+    header('location: add-files.php?g=' . mysqli_fetch_array(mysqli_query($conn, $sql))['identifier']);
   }
 
 ?>

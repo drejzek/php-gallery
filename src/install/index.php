@@ -156,7 +156,7 @@
                         <h3 class="panel-title">Další nastavení</h3>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 mx-auto">
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label class="control-label">Název galerie</label>

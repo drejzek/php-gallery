@@ -1,89 +1,67 @@
-document.getElementById('InstallWizzard').addEventListener('submit', function(event) {
+document.getElementById('InstallWizzard').addEventListener('submit', async function(event) {
     event.preventDefault(); // Zabrání odeslání formuláře standardním způsobem
 
     var formData = new FormData(this); // Získání dat z formuláře
 
-    //Database data
+    // Funkce na vytvoření Promise pro AJAX požadavek
+    function sendRequest(url) {
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    } else {
+                        reject(xhr.status);
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+    }
 
-    var xhrDB = new XMLHttpRequest();
-    xhrDB.open('POST', 'process/database.php', true); // Zde nahraďte URL adresou vašeho serveru
+    // Funkce pro vytvoření zpoždění
+    function delay(time) {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, time);
+        });
+    }
 
-    xhrDB.onreadystatechange = function() {
-        if (xhrDB.readyState === XMLHttpRequest.DONE) {
-            //var responseDiv = document.getElementById('response');
-            if (xhrDB.status === 200) {
-                // Odpověď od serveru při úspěšném požadavku
-                database = xhrDB.responseText;
-            } else {
-                database = xhrDB.status;
-            }
-        }
-        else{
-            database = "0";
-        }
-    };
+    try {
+        // Poslání prvního požadavku
+        var database = await sendRequest('process/database.php');
+        console.log('Database response: ', database);
 
-    xhrDB.send(formData); // Odeslání dat na server
+        // Pauza 1 sekunda
+        await delay(1000);
 
-    //Tables data
+        // Poslání druhého požadavku
+        var tables = await sendRequest('process/tables.php');
+        console.log('Tables response: ', tables);
 
-    var xhrTables = new XMLHttpRequest();
-    xhrTables.open('POST', 'process/tables.php', true); // Zde nahraďte URL adresou vašeho serveru
+        // Pauza 1 sekunda
+        await delay(1000);
 
-    xhrTables.onreadystatechange = function() {
-        if (xhrTables.readyState === XMLHttpRequest.DONE) {
-            var responseDiv = document.getElementById('response');
-            if (xhrTables.status === 200) {
-                // Odpověď od serveru při úspěšném požadavku
-                tables = xhrTables.responseText;
-            } else {
-                // Chyba při odesílání formuláře
-                tables = xhrTables.status;
-            }
-        }
-    };
+        // Poslání třetího požadavku
+        var user = await sendRequest('process/user.php');
+        console.log('User response: ', user);
 
-    xhrTables.send(formData); // Odeslání dat na server
+        // Pauza 1 sekunda
+        await delay(1000);
 
-    //User data
+        // Poslání čtvrtého požadavku
+        var settings = await sendRequest('process/settings.php');
+        console.log('Settings response: ', settings);
 
-    var xhrUser = new XMLHttpRequest();
-    xhrUser.open('POST', 'process/user.php', true); // Zde nahraďte URL adresou vašeho serveru
+        // Výpis všech dat
+        var resultString = database + tables + user + settings;
 
-    xhrUser.onreadystatechange = function() {
-        if (xhrUser.readyState === XMLHttpRequest.DONE) {
-            var responseDiv = document.getElementById('response');
-            if (xhrUser.status === 200) {
-                // Odpověď od serveru při úspěšném požadavku
-                user = xhrUser.responseText;
-            } else {
-                // Chyba při odesílání formuláře
-                user = xhrUser.status;
-            }
-        }
-    };
+        window.location.href = "finish.php?result=" + resultString;
 
-    xhrUser.send(formData); // Odeslání dat na server
+        // var resultString = `config_file:${configResult};db_test:${dbTestResult};tables:${tablesResult};user:${userResult}`;
 
-    //Settings data
-
-    var xhrSettings = new XMLHttpRequest();
-    xhrSettings.open('POST', 'process/settings.php', true); // Zde nahraďte URL adresou vašeho serveru
-
-    xhrSettings.onreadystatechange = function() {
-        if (xhrSettings.readyState === XMLHttpRequest.DONE) {
-            var responseDiv = document.getElementById('response');
-            if (xhrSettings.status === 200) {
-                // Odpověď od serveru při úspěšném požadavku
-                settings = xhrSettings.responseText;
-            } else {
-                // Chyba při odesílání formuláře
-                settings = xhrSettings.status;
-            }
-        }
-    };
-
-    xhrSettings.send(formData); // Odeslání dat na server
-
-    alert("Data: " + database + " " + tables + " " + user + " " + settings);
+    } catch (error) {
+        console.error('Nastala chyba při odesílání jednoho z požadavků: ', error);
+    }
 });

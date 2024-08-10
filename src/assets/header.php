@@ -45,6 +45,10 @@ if($admin && !$_SESSION['user_admin']){
       }
       header{
         background-color: <?php echo $s['theme_bg_header_color']?>;
+        border-color: <?php echo $s['theme_header_font_color']?>;
+      }
+      header > a, .nav > *{
+        color: <?php echo $s['theme_header_font_color']?>;
       }
       .album{
         background-color: <?php echo $s['theme_bg_page_color']?>;
@@ -58,12 +62,12 @@ if($admin && !$_SESSION['user_admin']){
     <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        <a href="<?php echo $s['gallery_url']?>" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none pe-3 border-end me-3" style="color:<?php echo $s['theme_header_font_color']?>">
+          <?php echo $s['gallery_name']?>
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="<?php echo $s['gallery_url']?>" class="nav-link px-2 link-light">Overview</a></li>
+          <li><a href="<?php echo $s['gallery_url']?>" class="nav-link px-2" style="color:<?php echo $s['theme_header_font_color']?>">Overview</a></li>
         </ul>
         
         <?php if(isset($_SESSION['user_id']) && !$_SESSION['user_admin']): ?>

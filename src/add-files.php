@@ -3,11 +3,11 @@
 
     $gid = $_GET['g'];
 
-    $sql = "SELECT * FROM galleries WHERE id = $gid";
-
+    $sql = "SELECT * FROM galleries WHERE identifier = '$gid'";
     $r = mysqli_query($conn, $sql);
-
-    $name = mysqli_fetch_array($r)['name'];
+    $g = mysqli_fetch_array($r);
+    $name = $g['name'];
+    $id = $g['id'];
 
 ?>
 
@@ -20,9 +20,9 @@
                 <div class="d-flex mb-5">
                     <div class="container">
                         <h1 class="fw-light me-auto">Nahrát soubory</h1>
-                        <h4 class="fw-light">g/<?php echo $name ?></h4>
+                        <h4 class="fw-light"><?php echo $name ?></h4>
                     </div>
-                    <a href="gallery.php?g=<?php echo $_GET['g']?>" class="btn">Pokračovat</a>
+                    <a href="album/<?php echo $_GET['g']?>" class="btn">Pokračovat</a>
                 </div>
                 <div id="dropzone" class="w-100">
                     <form class="dropzone needsclick w-100" id="demo-upload" action="upload.php" name="upload">
@@ -30,7 +30,7 @@
                             Přesuňte soubory sem nebo klikněte pro nahrání.<br>
                         </div>
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']?>">
-                        <input type="hidden" name="gid" value="<?php echo $_GET['g']?>">
+                        <input type="hidden" name="gid" value="<?php echo $id?>">
                     </form>
                 </div>
             </div>

@@ -18,8 +18,8 @@ if ($conn->connect_error) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    if(!$index){    
-        header("Location: login.php");
+    if(!$index || $loginInPrivate){    
+        header("Location: auth/");
         exit();
     }
 }

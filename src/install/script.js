@@ -1,5 +1,3 @@
-var database, tables = "", user = "", settings = ""; 
-
 $(document).ready(function () {
 
     var navListItems = $('div.setup-panel div a'),
@@ -58,7 +56,7 @@ document.getElementById('InstallWizzard').addEventListener('submit', async funct
                     if (xhr.status === 200) {
                         resolve(xhr.responseText);
                     } else {
-                        reject(xhr.status);
+                        reject(xhr.responseText);
                     }
                 }
             };
@@ -73,42 +71,63 @@ document.getElementById('InstallWizzard').addEventListener('submit', async funct
         });
     }
 
+    // Proměnné pro uložení výsledků a chyb
+    var resultString = '';
+    var errors = '';
+
     try {
-        // Poslání prvního požadavku
-        var database = await sendRequest('process/database.php');
-        console.log('Database response: ', database);
-
-        // Pauza 1 sekunda
+        try {
+            database = await sendRequest('process/database.php');
+            resultString += 'database:1;';
+        } catch (error) {
+            resultString += 'database:0;';
+            errors += 'database:' + error + ';';
+        }
         await delay(1000);
 
-        // Poslání druhého požadavku
-        var tables = await sendRequest('process/tables.php');
-        console.log('Tables response: ', tables);
-
-        // Pauza 1 sekunda
+        try {
+            config_file = await sendRequest('process/config_file.php');
+            resultString += 'config_file:1;';
+        } catch (error) {
+            resultString += 'config_file:0;';
+            errors += 'config_file:' + error + ';';
+        }
         await delay(1000);
 
-        // Poslání třetího požadavku
-        var user = await sendRequest('process/user.php');
-        console.log('User response: ', user);
-
-        // Pauza 1 sekunda
+        try {
+            tables = await sendRequest('process/tables.php');
+            resultString += 'tables:1;';
+        } catch (error) {
+            resultString += 'tables:0;';
+            errors += 'tables:' + error + ';';
+        }
         await delay(1000);
 
-        // Poslání čtvrtého požadavku
-        var settings = await sendRequest('process/settings.php');
-        console.log('Settings response: ', settings);
+        try {
+            user = await sendRequest('process/user.php');
+            resultString += 'user:1;';
+        } catch (error) {
+            resultString += 'user:0;';
+            errors += 'user:' + error + ';';
+        }
 
-        // Výpis všech dat
-        var resultString = database + tables + user + settings;
+        try {
+            user = await sendRequest('process/settings.php');
+            resultString += 'settings:1;';
+        } catch (error) {
+            resultString += 'settings:0;';
+            errors += 'settings:' + error + ';';
+        }
 
-        window.location.href = "finish.php?result=" + resultString;
+        // Přesměrování na finální stránku s výsledky a chybami
+        var redirectUrl = "finish.php?result=" + encodeURIComponent(resultString);
+        if (errors) {
+            redirectUrl += "&errors=" + encodeURIComponent(errors);
+        }
 
-        // var resultString = `config_file:${configResult};db_test:${dbTestResult};tables:${tablesResult};user:${userResult}`;
+        window.location.href = redirectUrl;
 
     } catch (error) {
-        console.error('Nastala chyba při odesílání jednoho z požadavků: ', error);
+        console.error('Nastala neočekávaná chyba: ', error);
     }
 });
-
-

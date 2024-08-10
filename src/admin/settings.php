@@ -29,6 +29,13 @@ include '../sess.php';
         $defPassRequired = $sfield[3];
         $defUserVerify = $sfield[4];
         $defUserBlock = $sfield[5];
+
+        $theme_bg_header_color = $_POST['theme_bg_header_color'];
+        $theme_bg_page_color = $_POST['theme_bg_page_color'];
+        $theme_bg_gallery_card_color = $_POST['theme_bg_gallery_card_color'];
+        $theme_bg_footer_color = $_POST['theme_bg_footer_color'];
+        $theme_font_color = $_POST['theme_font_color'];
+        $theme_header_font_color = $_POST['theme_header_font_color'];
         
         $sql = "UPDATE `settings`
                 SET
@@ -40,10 +47,26 @@ include '../sess.php';
                     `user_default_verify`='$defUserVerify',
                     `user_default_banned`='$defUserBlock',
                     `gallery_private`='$private',
-                    `allow_signup`='$allowSignUp'
+                    `allow_signup`='$allowSignUp',
+                    `theme_bg_header_color`='$theme_bg_header_color',
+                    `theme_bg_page_color`='$theme_bg_page_color',
+                    `theme_bg_gallery_card_color`='$theme_bg_gallery_card_color',
+                    `theme_bg_footer_color`='$theme_bg_footer_color',
+                    `theme_font_color`='$theme_font_color',
+                    `theme_header_font_color`='$theme_header_font_color'
                 WHERE 1";
 
         $r = mysqli_query($conn, $sql);
+
+        if($r){
+            $htaccess = "ErrorDocument 404 " . $url . "etc/404.php\n"; 
+            $htaccess .= "RewriteEngine On\n"; 
+            $htaccess .= "RewriteBase $url\n"; 
+            $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)$ gallery.php?g=$1 [L,QSA]\n"; 
+            $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)/edit$ gallery.php?g=$1&edit [L,QSA]\n"; 
+            file_put_contents("../.htaccess", $htaccess);
+        }
+
     }
 
   if(isset($_POST['delImg'])){
@@ -166,6 +189,10 @@ include '../sess.php';
                             <li class="list-group-item d-flex">
                                 <span class="me-auto">Barva písma</span>
                                 <input type="color" name="theme_font_color" id="" value="<?php echo $s['theme_font_color']?>">
+                            </li>
+                            <li class="list-group-item d-flex">
+                                <span class="me-auto">Barva písma hlavičky</span>
+                                <input type="color" name="theme_header_font_color" id="" value="<?php echo $s['theme_header_font_color']?>">
                             </li>
                         </ul>
 
