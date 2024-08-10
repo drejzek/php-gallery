@@ -3,7 +3,7 @@
  You're able share your photos with everyone you want, securely via web browser.
 
  ## Key features
- - Creating unlimited number of galleries albums and subalbums
+ - Creating unlimited number of galleries, albums and subalbums
  - Locking single galleries or albums with password
  - Making galleries and albums private
  - User login and sign up
@@ -25,7 +25,7 @@
  - You must save the settings page for create .htaccess file
  - Then you're done!
 
-   Note: gallery URL must be without domain. E. g. if your gallery is at this URL: `https://example.com/gallery/`. Enter `/gallery/` in the gallery URL field. If our gallery is in the root folder Enter only `/`.
+   Note: gallery URL must be without domain. E. g. if your gallery is at this URL: `https://example.com/gallery/`. Enter `/gallery/` in the gallery URL field. If your gallery is in the root folder Enter only `/`.
 
  ## Themes
  You can add themes to your gallery. There are two themes, that are supplied with every copy:
@@ -35,7 +35,7 @@
  You can also make your own theme. The manual for this is bellow this article.
 
  ## How to make own theme
- Making own theme is really simple, if you now CSS. Your theme folder must contains:
+ Making own theme is really simple, if you know CSS. Your theme folder must contains:
  - Manifest file
  - Components folder
  - At least one stylesheet file in styles folder
