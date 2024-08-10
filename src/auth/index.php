@@ -79,7 +79,7 @@ if (isset($_POST["submit"])) {
                 </label>
               </div>
               <div class="d-grid">
-                <button class="btn btn-success btn-login w-50" type="submit" name="submit">Přihlásit</button>
+                <button class="btn btn-success btn-login" type="submit" name="submit">Přihlásit</button>
               </div>
               <hr class="my-4">
               <div class="d-grid mb-2">

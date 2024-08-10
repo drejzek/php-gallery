@@ -4,6 +4,8 @@ if(empty($conn)){
     header('location: install/');
 }
 
+$noLoginRequired = isset($noLoginRequired) ? $noLoginRequired : true;
+
 $sql = "SELECT * FROM settings LIMIT 1";
 $r_s = mysqli_query($conn, $sql);
 $s = mysqli_fetch_array($r_s);
@@ -18,8 +20,16 @@ if ($conn->connect_error) {
 }
 
 if (!isset($_SESSION['user_id'])) {
-    if(!$index || $loginInPrivate && $s['gallery_private']){    
-        header("Location: auth/");
+    if(!$index || ($loginInPrivate && $s['gallery_private']) || !$noLoginRequired){    
+        if(isset($_GET['g'])){
+            header("Location: ../auth/");
+        }
+        else if(isset($_GET['g']) && isset($_GET['edit'])){
+            header("Location: ../../auth/");
+        }
+        else{
+            header("Location: auth/");
+        }
         exit();
     }
 }

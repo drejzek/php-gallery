@@ -22,7 +22,7 @@
     }
     
     // Dotaz na databázi
-    $sql = "SELECT * FROM users WHERE id = " . $_GET['id'];
+    $sql = "SELECT * FROM users WHERE username = '" . $_GET['id'] . "'";
     $result = $conn->query($sql);
     
     // Výpis výsledků do tabulky

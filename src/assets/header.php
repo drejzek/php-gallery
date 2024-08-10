@@ -1,7 +1,6 @@
 <?php
 
 if($admin && !$_SESSION['user_admin']){    
-  echo 'not admin';
   header("Location: " . $s['gallery_url'] . "auth/");
   exit();
 }
@@ -9,13 +8,10 @@ if($admin && !$_SESSION['user_admin']){
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="/docs/5.3/assets/js/color-modes.js"></script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.122.0">
+    <meta name="author" content="David Rejzek">
     <meta name="theme-color" content="#712cf9">
     <title>Album example · Bootstrap v5.3</title>
 
@@ -76,8 +72,8 @@ if($admin && !$_SESSION['user_admin']){
               <?php echo $_SESSION['user_name'] ?>
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery.php">Nová galerie</a></li>
-              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>users/profile.php">Profil</a></li>
+              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery">Nová galerie</a></li>
+              <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>profile">Profil</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>auth/logout.php">Odhlásit se</a></li>
             </ul>
@@ -88,11 +84,11 @@ if($admin && !$_SESSION['user_admin']){
                 <?php echo $_SESSION['user_name'] ?>
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery.php">Nová galerie</a></li>
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>add-gallery">Nová galerie</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>users/">Uživatelé</a></li>
                 <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>admin/settings.php">Nastavení</a></li>
-                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>users/profile.php">Profil</a></li>
+                <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>profile">Profil</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="<?php echo $s['gallery_url']?>auth/logout.php">Odhlásit se</a></li>
               </ul>

@@ -64,6 +64,9 @@ include '../sess.php';
             $htaccess .= "RewriteBase $url\n"; 
             $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)$ gallery.php?g=$1 [L,QSA]\n"; 
             $htaccess .= "RewriteRule ^album/([a-zA-Z0-9-]+)/edit$ gallery.php?g=$1&edit [L,QSA]\n"; 
+            $htaccess .= "RewriteRule ^user/([a-zA-Z0-9-]+)$ users/user.php?id=$1 [L,QSA]\n"; 
+            $htaccess .= "RewriteRule ^profile users/profile.php [L,QSA]\n"; 
+            $htaccess .= "RewriteRule ^add-gallery add-gallery.php [L,QSA]\n"; 
             file_put_contents("../.htaccess", $htaccess);
         }
 

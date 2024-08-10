@@ -1,4 +1,4 @@
-<?php $index = true; ?>
+<?php $index = true; $loginInPrivate = true;?>
 <?php include 'config.php'?>
 <?php include 'sess.php'?>
 
@@ -138,7 +138,7 @@
         <div class="ms-auto">
           <?php if(isset($_SESSION['user_id'])): ?>
           <div class="btn-group">
-            <a href="add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-outline-primary"><i class="fas fa-plus me-2"></i> Přidat</a>
+            <a href="../add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-outline-primary"><i class="fas fa-plus me-2"></i> Přidat</a>
             <a href="<?php echo $_GET['g']?>/edit" class="btn btn-outline-primary"><i class="fas fa-pencil-alt me-2"></i> Upravit</a>
           </div>
           <?php endif;?>
@@ -204,7 +204,7 @@
             } 
           }
           else{
-            $sql = "SELECT * FROM galleries WHERE upper_gallery_id = " .  $gi['identifier'] . "' ORDER BY name ASC";
+            $sql = "SELECT * FROM galleries WHERE upper_gallery_id = '" .  $gi['id'] . "' ORDER BY name ASC";
             $r = mysqli_query($conn, $sql);
             while($g = mysqli_fetch_array($r)){
               $id = $g['id'];
@@ -217,12 +217,12 @@
               else if($photos > 1 && $photos < 5){
                 $photos_text = "fotografie";
               }
-              else if($photos >= 5){
+              else if($photos >= 5 || $photos == 0){
                 $photos_text = "fotografií";
               }
               if($r1->num_rows == 1){
                 $path = mysqli_fetch_array($r1)['name'];
-                $img = "<img src='files/$path' class='card-img-top object-fit-cover' height='255' loading='lazy'>";
+                $img = "<img src='../files/$path' class='card-img-top object-fit-cover' height='255' loading='lazy'>";
               }
               else{
                 $img = '<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">' . $g['name'] . '</text></svg>';
@@ -237,7 +237,6 @@
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                           <a href="../album/' . $g['identifier'] . '" type="button" class="btn btn-sm btn-outline-secondary">Zobrazit</a>
-                          <a href="../album/' . $g['identifier'] . '/edit" type="button" class="btn btn-sm btn-outline-secondary">Upravit</a>
                         </div>
                         <small class="text-body-secondary">' . $photos . ' ' . $photos_text . '</small>
                       </div>
@@ -354,7 +353,7 @@
                             <div class="list-group">
                                 <div class="list-group-item d-flex">
                                     <h4 class="me-auto">Nahrané soubory</h4>
-                                    <a href="add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-primary"><i class="fas fa-upload"></i> Nahrát</a>
+                                    <a href="../../add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-primary"><i class="fas fa-upload"></i> Nahrát</a>
                                 </div>
                                 <?php
                                         /* $sql = "SELECT * FROM files WHERE gallery_id = '" . $_GET['g'] . "' ORDER BY id ASC";

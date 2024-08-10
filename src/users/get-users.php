@@ -64,7 +64,7 @@
                         <span class='dot ".$activity_color."'></span>
                         <span class=\"small text-secondary ms-2\">" . $activity_text . "</sapn>
                     </td>-->
-                    <td class=\"text-center\"><a class=\"btn btn-sm\" href=\"user.php?id=" . $row["id"] . "\"><i class=\"fas fa-pencil\"></i></a></td>
+                    <td class=\"text-center\"><a class=\"btn btn-sm\" href=\"../user/" . $row["username"] . "\"><i class=\"fas fa-pencil\"></i></a></td>
                 </tr>
                     ";
         }

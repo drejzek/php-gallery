@@ -11,7 +11,7 @@
         <h1 class="fw-light mb-3 me-auto"><?php echo $s['gallery_name']?></h1>
         <div class="ms-auto">
           <?php if(isset($_SESSION['user_id'])): ?>
-          <a href="add-gallery.php" class="btn btn-outline-primary"><i class="fas fa-plus me-2"></i> Přidat</a>
+          <a href="add-gallery" class="btn btn-outline-primary"><i class="fas fa-plus me-2"></i> Přidat</a>
           <?php endif;?>
         </div>
       </div>
@@ -99,7 +99,7 @@
                       <p class="card-text">' . $g['descr'] . '</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                          <a href="gallery.php?g=' . $g['id'] . '" type="button" class="btn btn-sm btn-outline-secondary">Zobrazit</a>
+                          <a href="album/' . $g['identifier'] . '" type="button" class="btn btn-sm btn-outline-secondary">Zobrazit</a>
                         </div>
                         <small class="text-body-secondary">' . $photos . ' ' . $photos_text . '</small>
                       </div>
