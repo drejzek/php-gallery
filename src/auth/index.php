@@ -6,6 +6,12 @@ session_start();
 include 'config.php';
 
 $sql = "SELECT * FROM settings LIMIT 1";
+$r = mysqli_query($conn, $sql);
+$s = mysqli_fetch_array($r);
+
+include '../theme.php';
+
+$sql = "SELECT * FROM settings LIMIT 1";
 $r_s = mysqli_query($conn, $sql);
 $s = mysqli_fetch_array($r_s);
 

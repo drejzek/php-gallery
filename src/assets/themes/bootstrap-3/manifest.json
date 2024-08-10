@@ -1,0 +1,17 @@
+{
+    "theme_name" : "Bootstrap 3",
+    "theme_identifier" : "bootstrap-3",
+    "theme_version" : "1.0.0",
+    "theme_author" : "David Rejzek",
+    "theme_contributoin" : "",
+    "theme_id" : "1",
+    "theme_description" : "The Bootstrap 3 theme for PHP open-source Gallery",
+    "theme_icon" : "",
+    "theme_thumbnail" : "",
+    "theme_components" : {
+        "styles" : {
+            "stylesheet" : "index.css",
+            "bootstrap" : "bootstrap.css"
+        }
+    }
+}

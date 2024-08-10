@@ -1,9 +1,9 @@
-<?php $admin = false;?>
+<?php //$admin = false;?>
 <?php
-    include '../config.php';
-    include '../sess.php';
+   // include '../config.php';
+    //include '../sess.php';
 ?>
-<?php include '../assets/header.php'?>
+<?php //include '../assets/header.php'?>
 
     <main>
       <div class="album py-5 bg-body-tertiary">

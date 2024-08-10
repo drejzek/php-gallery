@@ -20,12 +20,12 @@
 
   if(!isset($_SESSION['user_id'])){
     if($gi['is_locked'] && !isset($_SESSION['gallery-' . $gi['id']])){
-      header('location: gallery-unlock.php?g=' . $gi['id']);
+      header('location: unlock/' . $gi['identifier']);
     }
   }
   else if($_SESSION['user_id'] != $gi['user_id']){
     if($gi['is_locked'] && !isset($_SESSION['gallery-' . $gi['id']])){
-      header('location: gallery-unlock.php?g=' . $gi['id']);
+      header('location: unlock/' . $gi['identifier']);
     }
   }
 
@@ -85,7 +85,7 @@
     $r = mysqli_query($conn, $sql);
 
     if(!empty($_POST['gpwd'])){
-        $sql = "UPDATE galleries SET password = '$pwd' WHERE id = " . $_GET['g'];
+        $sql = "UPDATE galleries SET password = '$pwd' WHERE identifier = '" . $_GET['g'] . "'";
         $r = mysqli_query($conn, $sql);
     }
   }
@@ -115,11 +115,12 @@
     mysqli_query($conn, $sql);
   }
 
-  if(isset($_POST['alt_textSubmit'])){
+  if(isset($_POST['file_submit'])){
     $id = $_POST['g_id'];
+    $title = $_POST['title'];
     $alt = $_POST['alt_text'];
 
-    $sql = "UPDATE files SET alt_text = '$alt' WHERE id = $id";
+    $sql = "UPDATE files SET title = '$title', alt_text = '$alt' WHERE id = $id";
     $r = mysqli_query($conn, $sql);
   }
 
@@ -187,7 +188,29 @@
                   <div class="card shadow-sm">
                     ' . $img . '
                     <div class="card-body">
-                      <h5>' . $g['name'] . '</h5>
+                      <h5 class="d-inline-block me-2">' . $g['name'] . '</h5>
+                      ';
+                      if($g['is_locked']){
+                        echo '
+                        <i class="fas fa-lock text-danger me-2"></i>
+                        ';
+                      }
+                      else{
+                        echo '
+                        <i class="fas fa-unlock text-success me-2"></i>
+                        ';
+                      }
+                      if($g['is_private']){
+                        echo '
+                        <i class="fas fa-eye-slash text-danger me-2"></i>
+                        ';
+                      }
+                      else{
+                        echo '
+                        <i class="fas fa-eye text-success me-2"></i>
+                        ';
+                      }
+                      echo '
                       <p class="card-text">' . $g['descr'] . '</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
@@ -403,31 +426,36 @@
                                                 </div>
 
                                                 <div class="modal" id="imgEdit' . $g['id'] . '">
-                                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                                    <div class="modal-dialog modal-xl modal-dialog-centered">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <span class="modal-title">Upravit fotografii</span>
                                                                 <button class="btn-close" data-bs-dismiss="modal"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form class="d-flex" method="post">
-                                                                    <img src="../../files/' . $g['name'] . '" alt="" class="img-thumbnail g-img object-fit-cover me-3" onclick="openModal(files/' . $g['name'] . ')" loading="lazy" style="width:120px;height:120px">
-                                                                    <div class="w-100">
-                                                                        <span class="fw-bold">' . $g['name'] . '</span>
-                                                                        <div class="form-group my-3">
-                                                                            <label for="" class="form-label">Alternativní text</label>
-                                                                            <div class="input-group">
-                                                                                <input type="text" name="alt_text" id="" class="form-control" value="' . $g['alt_text'] . '">
-                                                                                <input type="submit" name="alt_textSubmit" id="" class="btn btn-success" value="Uložit">
-                                                                            </div>
-                                                                        </div>
-                                                                        <br>
-                                                                        <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
-                                                                        <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
-                                                                        <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                                        <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
-                                                                        <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
-                                                                    </div>
+                                                                <form class="row" method="post">
+                                                                  <div class="col-sm-8">
+                                                                    <img src="../../files/' . $g['name'] . '" alt="" class="me-3 w-100 h-100" onclick="openModal(files/' . $g['name'] . ')" loading="lazy">
+                                                                  </div>
+                                                                  <div class="col-sm-4">
+                                                                      <span class="fw-bold">' . $g['name'] . '</span>
+                                                                      <div class="form-group my-3">
+                                                                        <label for="" class="form-label">Titulek</label>
+                                                                        <input type="text" name="title" id="" class="form-control" value="' . $g['title'] . '">
+                                                                      </div>
+                                                                      <div class="form-group my-3">
+                                                                        <label for="" class="form-label">Alternativní text</label>
+                                                                        <input type="text" name="alt_text" id="" class="form-control" value="' . $g['alt_text'] . '">
+                                                                      </div>
+                                                                      <input type="submit" name="file_submit" id="" class="btn btn-success" value="Uložit">
+                                                                      <br>
+                                                                      <br>
+                                                                      <button class="btn btn-primary" type="submit" name="setAsThumbnail" ' . ($g['is_thumbnail'] ? 'disabled' : '') . '><i class="fas fa-image"></i> Nastavit jako náhled</button>
+                                                                      <button class="btn btn-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i> Smazat</button>
+                                                                      <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                                      <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
+                                                                      <input type="hidden" name="g_id" id="" class="btn btn-success" value="' . $g['id'] . '">
+                                                                  </div>
                                                                 </form>
                                                             </div>
                                                         </div>

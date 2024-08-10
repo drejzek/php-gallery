@@ -1,9 +1,10 @@
 <?php
     $index = true;
+    $loginInPrivate = false;
     include 'config.php';
     include 'sess.php';
 
-    $sql = "SELECT * FROM galleries WHERE id = "  . $_GET['g'];
+    $sql = "SELECT * FROM galleries WHERE identifier = '"  . $_GET['g'] . "'";
     $r = mysqli_query($conn, $sql);
     $gi = mysqli_fetch_array($r);    
 
@@ -12,7 +13,7 @@
 
         if($pwd == $gi['password']){
            $_SESSION['gallery-' . $gi['id']] = true;
-           header('location: gallery.php?g=' . $gi['id']);
+           header('location: ../' . $gi['identifier']);
         }
     }
 
@@ -22,7 +23,7 @@
     <main>
         <div class="album py-5 bg-body-tertiary">
         <div class="container">
-            <h1 class="fw-light mb-3 me-auto">g/<?php echo $gi['name']?></h1>
+            <h1 class="fw-light mb-3 me-auto"><?php echo $gi['name']?></h1>
             <div class="row mt-3">
                 <div class="col-sm-6 mx-auto">
                 <h4>Zadejte heslo k odemčení galerie</h4>

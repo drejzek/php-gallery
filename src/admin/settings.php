@@ -21,7 +21,7 @@ include '../sess.php';
         $url = $_POST['gurl'];
 
         for($i=0;$i<6;$i++)
-        $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
+            $sfield[$i] = isset($_POST['field'][$i]) ? 1 : 0;
 
         $private = $sfield[0];
         $allowSignUp = $sfield[1];
@@ -70,6 +70,14 @@ include '../sess.php';
             file_put_contents("../.htaccess", $htaccess);
         }
 
+    }
+
+    if(isset($_POST['themeSubmit'])){
+        $theme_id = $_POST['themeName'];
+
+        $sql = "UPDATE settings SET gallery_theme = '$theme_id' WHERE id = 1";
+
+        mysqli_query($conn, $sql);
     }
 
   if(isset($_POST['delImg'])){
@@ -171,6 +179,25 @@ include '../sess.php';
                             </li>
                         </ul>
 
+                        <h5 class="mt-5">Šablona</h5>
+                        <div class="container border p-3 bg-white d-flex">
+                            <?php
+                            
+                                $name = $theme_data['theme_name'];
+                                $author = $theme_data['theme_author'];
+                                $ver = $theme_data['theme_version'];
+
+                            ?>
+                            <div class="me-auto">
+                                <span class="fw-bold"><?php echo $name ?></span>
+                                <br>
+                                <span class=""><?php echo $author ?> • <?php echo $ver ?></span>
+                            </div>
+                            <div class="my-auto">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mThemes" type="button">Změnit</button>
+                            </div>
+                        </div>
+
                         <h5 class="mt-5">Barevné schéma</h5>
                         <ul class="list-group">
                             <li class="list-group-item d-flex">
@@ -207,5 +234,86 @@ include '../sess.php';
             </div>
         </div>
     </main>
+
+    <div class="modal" id="mThemes">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Šablony</h3>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                    <?php
+                    
+                        $themesDir = '../assets/themes';
+
+                        // Získání všech souborů a složek v adresáři themes
+                        $items = scandir($themesDir);
+
+                        // Iterace přes všechny položky
+                        foreach ($items as $item) {
+                            // Přeskočení speciálních složek . a ..
+                            if ($item === '.' || $item === '..') {
+                                continue;
+                            }
+
+                            // Sestavení celé cesty k aktuální položce
+                            $dirPath = $themesDir . '/' . $item;
+
+                            // Zkontrolujeme, zda je položka složka
+                            if (is_dir($dirPath)) {
+                                // Cesta k manifest.json v dané složce
+                                $manifestPath = $dirPath . '/manifest.json';
+                                
+                                // Zkontrolujeme, jestli manifest.json existuje
+                                if (file_exists($manifestPath)) {
+                                    // Načtení a dekódování JSON souboru
+                                    $jsonContent = file_get_contents($manifestPath);
+                                    $themeData = json_decode($jsonContent, true);
+
+                                    // Výpis informací o tématu
+                                    if ($themeData !== null) {
+                                        echo '
+                                        
+                                            <div class="list-group-item">
+                                                <form method="post">
+                                                    <div class="row">
+                                                        ';
+                                                        if($themeData['theme_icon'] != ""){
+                                                            echo '<div class="col-sm-3">
+                                                                    <img src="" alt="" class="object-fit-cover w-100 h-100">
+                                                                </div>';
+                                                        }
+                                                        echo '
+                                                        <div class="col-sm-9">
+                                                            <h4>' . $themeData['theme_name'] .'</h4>
+                                                            <span class="text-small">' . $themeData['theme_author'] .' • ' . $themeData['theme_version'] .'</span>
+                                                            <p class="">
+                                                                ' . $themeData['theme_description'] .'
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="themeID" value="">
+                                                    <input type="hidden" name="themeName" value="' . $themeData['theme_identifier'] .'">
+                                                    <input type="submit" name="themeSubmit" value="Aktivovat" class="btn btn-primary">
+                                                </form>
+                                            </div>
+                                        
+                                        ';
+                                    } else {
+                                        echo 'Chyba při dekódování JSON v ' . $manifestPath . PHP_EOL;
+                                    }
+                                } else {
+                                    echo 'manifest.json nebyl nalezen ve složce ' . $dirPath . PHP_EOL;
+                                }
+                            }
+                        }            
+                    ?>
+                    </div>                    
+                </div> 
+            </div>
+        </div>
+    </div>
 
   <?php include '../assets/footer.php'?>

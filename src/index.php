@@ -49,7 +49,29 @@
                   <div class="card shadow-sm">
                     ' . $img . '
                     <div class="card-body">
-                      <h5>' . $g['name'] . '</h5>
+                      <h5 class="d-inline-block me-2">' . $g['name'] . '</h5>
+                      ';
+                      if($g['is_locked']){
+                        echo '
+                        <i class="fas fa-lock text-danger me-2"></i>
+                        ';
+                      }
+                      else{
+                        echo '
+                        <i class="fas fa-unlock text-success me-2"></i>
+                        ';
+                      }
+                      if($g['is_private']){
+                        echo '
+                        <i class="fas fa-eye-slash text-danger me-2"></i>
+                        ';
+                      }
+                      else{
+                        echo '
+                        <i class="fas fa-eye text-success me-2"></i>
+                        ';
+                      }
+                      echo '
                       <p class="card-text">' . $g['descr'] . '</p>
                       <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">

@@ -5,6 +5,8 @@ if($admin && !$_SESSION['user_admin']){
   exit();
 }
 
+$theme = $s['gallery_theme'];
+
 ?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -17,41 +19,38 @@ if($admin && !$_SESSION['user_admin']){
 
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
+    <?php
+    
+      foreach($theme_data['theme_components']['styles'] as $style){
+        echo '<link href="' . $s['gallery_url'] . 'assets/themes/' . $theme . '/components/styles/' . $style . '" rel="stylesheet">';
+      }
+    
+    ?>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="<?php echo $s['gallery_url']?>assets/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo $s['gallery_url']?>assets/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <style>
-      .dropzone {
-        background: white;
-        border-radius: 5px;
-        border: 2px dashed rgb(0, 135, 247);
-        border-image: none;
-      }
-      p, h1, h2, h3, h4. h5, h6{
-        color: <?php echo $s['theme_font_color']?>
-      }
-      .g-img{
-        max-width: 225px;
-        max-height: 225px;
+      body{
+        background-color: <?php echo $s['theme_bg_page_color']?>;
       }
       header{
         background-color: <?php echo $s['theme_bg_header_color']?>;
-        border-color: <?php echo $s['theme_header_font_color']?>;
+        color: <?php echo $s['theme_header_font_color']?>
       }
-      header > a, .nav > *{
-        color: <?php echo $s['theme_header_font_color']?>;
+      .card{
+        background-color: <?php echo $s['theme_bg_gallery_card_color']?>;
       }
-      .album{
-        background-color: <?php echo $s['theme_bg_page_color']?>;
+      .footer{
+        background-color: <?php echo $s['theme_bg_footer_color']?>;
       }
-      {
-        color: inherit;
+      *:not(.fas, .far, .fab){
+        /* color: <?php echo $s['theme_font_color']?>; */
       }
+
     </style>
   </head>
   <body onload="coll()">
