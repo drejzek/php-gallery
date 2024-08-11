@@ -124,7 +124,6 @@
     $r = mysqli_query($conn, $sql);
   }
 
-
 ?>
 
 <?php include 'assets/header.php'?>
@@ -376,6 +375,7 @@
                             <div class="list-group">
                                 <div class="list-group-item d-flex">
                                     <h4 class="me-auto">Nahrané soubory</h4>
+                                    <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#mDownloadImages"><i class="fas fa-download"></i> Stáhnout</button>
                                     <a href="../../add-files.php?g=<?php echo $_GET['g']?>" class="btn btn-primary"><i class="fas fa-upload"></i> Nahrát</a>
                                 </div>
                                 <?php
@@ -416,6 +416,7 @@
                                                             <br>
                                                             <form method="post">
                                                                 <button data-bs-toggle="modal" data-bs-target="#imgEdit' . $g['id'] . '" class="btn btn-lg" type="button" name=""><i class="fas fa-pencil-alt"></i></button>
+                                                                <a href="../../files/' . $g['name'] . '" download class="btn btn-lg" type="button" name=""><i class="fas fa-download"></i></a>
                                                                 <button class="btn text-danger" type="submit" name="delImg"><i class="fas fa-trash-alt"></i></button>
                                                                 <input type="hidden" name="fid" id="" class="btn btn-success" value="' . $g['id'] . '">
                                                                 <input type="hidden" name="fname" id="" class="btn btn-success" value="' . $g['name'] . '">
@@ -490,6 +491,39 @@
         </div>
       <?php endif;?>
 </main>
+
+<div class="modal" id="mDownloadImages">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Stánhout obrázky</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post" action="<?php echo $s['gallery_url']?>zip.php">
+        <div class="modal-body"> 
+          <input class="form-check-input" type="checkbox" onClick="toggle(this)" id="checkAll">
+          <label for="checkAll">Označit vše</label>
+          <br>
+          <div class="row g-3 mb-5">
+            <?php
+              $sql = "SELECT * FROM files WHERE gallery_id = '" . $gi['id'] . "' ORDER BY id ASC";
+              $r = mysqli_query($conn, $sql);
+            ?>
+              <?php while ($g = mysqli_fetch_array($r)): ?>
+                <label for="img<?php echo $g['id']; ?>" class="col-sm-2 g-img mb-2">
+                  <input class="form-check-input" type="checkbox" name="files[]" value="<?php echo $g['name']; ?>" id="img<?php echo $g['id']; ?>">
+                  <img src="../../files/<?php echo $g['name'] ?>" alt="" class="g-img w-100 h-100 object-fit-cover" loading="lazy">
+                </label>
+              <?php endwhile; ?>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="download" class="btn btn-primary">Stáhnout vybrané soubory</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script type="module" src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js">
 

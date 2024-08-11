@@ -52,6 +52,14 @@ $theme = $s['gallery_theme'];
       }
 
     </style>
+    <script>
+        function toggle(source) {
+            checkboxes = document.getElementsByName('files[]');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+    </script>
   </head>
   <body onload="coll()">
     <header class="p-3 border-bottom">

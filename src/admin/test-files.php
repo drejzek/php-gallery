@@ -10,6 +10,9 @@ if ($conn->connect_error) {
 // Cesta ke složce s soubory
 $folderPath = '../files/';
 
+if(file_exists($folderPath . "Thumbs.db"))   
+    unlink($folderPath . "Thumbs.db");
+
 // Načíst seznam souborů ve složce
 $folderFiles = array_diff(scandir($folderPath), array('.', '..'));
 
@@ -52,4 +55,5 @@ if (!empty($filesInDbButNotInFolder)) {
 
 // Zavřít připojení k databázi
 $conn->close();
+
 ?>

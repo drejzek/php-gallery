@@ -3,6 +3,7 @@
     include 'config.php';
     $ds = DIRECTORY_SEPARATOR;  //1
     $storeFolder = 'files';   //2
+    $path = "/files/";
     if (!empty($_FILES)) {
         $tempFile = $_FILES['file']['tmp_name'];          //3             
         $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;  //4
